@@ -24,12 +24,12 @@
 
     <label for="txtnom">
         Nom<br/>
-        <input type="text" name="txtnom" id="txtnom" value="<?= $user['name'] ?>" required>
+        <input type="text" name="txtnom" id="txtnom" value="<?= $user['nom'] ?>" required>
     </label>
 
     <label for="txtprenom">
         Prénom<br/>
-        <input type="text" name="txtprenom" id="txtprenom" value="<?= $user['firstname'] ?>" required>
+        <input type="text" name="txtprenom" id="txtprenom" value="<?= $user['prenom'] ?>" required>
     </label>
 
     <label for="txtemail">

@@ -184,8 +184,9 @@ if (isset($_POST['formReserver'])) {
     </label>
     
     <p class="error"><?= $err; ?></p>
-
+    
     <input type="submit" name="formReserver" value="Réserver">
+    <div>  Rappel : les horaires sont mentionnées pour un départ depuis Pau ou d'Anglet</div>
 </form>
 
 

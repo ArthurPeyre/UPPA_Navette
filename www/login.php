@@ -50,7 +50,7 @@ if (isset($_POST['formConn'])) {
 <body>
 
     <?php
-    include_once('/composants/header.php');
+    include_once('./composants/header.php');
     ?>
 
     <form action="" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">

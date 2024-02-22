@@ -27,7 +27,7 @@ if (isset($_POST['formConn'])) {
     if (!$id_user) {
 
         // Requête préparée pour l'insertion
-        $stmt = $conn->prepare("INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :mdp, '')");
+        $stmt = $conn->prepare("INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :mdp, '','')");
 
         // Liage des valeurs
         $stmt->bindParam(':nom', $_POST['txtnom']);
@@ -81,7 +81,7 @@ if (isset($_POST['formConn'])) {
 <body>
 
     <?php
-    include_once('/composants/header.php');
+    include_once('./composants/header.php');
     ?>
 
     <form action="" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">

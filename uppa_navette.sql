@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.4.1
--- http://www.phpmyadmin.net
+-- version 5.1.0
+-- https://www.phpmyadmin.net/
 --
--- Client :  localhost
--- Généré le :  Mer 31 Janvier 2024 à 00:18
--- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Hôte : localhost:8889
+-- Généré le : mar. 20 fév. 2024 à 10:13
+-- Version du serveur :  5.7.32
+-- Version de PHP : 8.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -17,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `uppa_navette`
+-- Base de données : `uppa_navette`
 --
 CREATE DATABASE IF NOT EXISTS `uppa_navette` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `uppa_navette`;
@@ -34,7 +35,7 @@ CREATE TABLE `date` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `date`
+-- Déchargement des données de la table `date`
 --
 
 INSERT INTO `date` (`id_date`, `date`) VALUES
@@ -45,7 +46,21 @@ INSERT INTO `date` (`id_date`, `date`) VALUES
 (5, '2024-01-31'),
 (6, '2024-02-01'),
 (7, '2024-02-02'),
-(8, '2024-02-03');
+(8, '2024-02-03'),
+(9, '2024-02-06'),
+(10, '2024-02-08'),
+(11, '2024-02-13'),
+(12, '2024-02-15'),
+(13, '2024-02-20'),
+(14, '2024-02-22'),
+(15, '2024-03-05'),
+(16, '2024-03-07'),
+(17, '2024-03-12'),
+(18, '2024-03-14'),
+(19, '2024-03-19'),
+(20, '2024-03-21'),
+(21, '2024-03-26'),
+(22, '2024-02-28');
 
 -- --------------------------------------------------------
 
@@ -59,7 +74,7 @@ CREATE TABLE `directions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `directions`
+-- Déchargement des données de la table `directions`
 --
 
 INSERT INTO `directions` (`id_direction`, `label`) VALUES
@@ -79,7 +94,7 @@ CREATE TABLE `horaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `horaire`
+-- Déchargement des données de la table `horaire`
 --
 
 INSERT INTO `horaire` (`id_horaire`, `heureDepart`, `heureArrivee`) VALUES
@@ -101,7 +116,7 @@ CREATE TABLE `lieux` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `lieux`
+-- Déchargement des données de la table `lieux`
 --
 
 INSERT INTO `lieux` (`id_lieu`, `ville`, `lieu`) VALUES
@@ -126,11 +141,15 @@ CREATE TABLE `reserver` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `reserver`
+-- Déchargement des données de la table `reserver`
 --
 
 INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieuArrivee`) VALUES
-(1, 1, 1, 6);
+(3, 3, 1, 5),
+(4, 12, 1, 6),
+(11, 3, 1, 6),
+(11, 12, 1, 6),
+(12, 12, 6, 1);
 
 -- --------------------------------------------------------
 
@@ -146,11 +165,20 @@ CREATE TABLE `trajets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `trajets`
+-- Déchargement des données de la table `trajets`
 --
 
 INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `id_direction`) VALUES
-(1, 5, 1, 1);
+(3, 11, 1, 1),
+(4, 13, 1, 1),
+(5, 11, 3, 2),
+(6, 14, 4, 1),
+(7, 22, 1, 1),
+(8, 13, 3, 2),
+(9, 17, 1, 1),
+(10, 14, 1, 1),
+(11, 15, 1, 1),
+(12, 15, 3, 2);
 
 -- --------------------------------------------------------
 
@@ -160,23 +188,27 @@ INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `id_direction`) VAL
 
 CREATE TABLE `utilisateurs` (
   `id_utilisateur` int(11) NOT NULL,
-  `name` varchar(50) NOT NULL,
-  `firstname` varchar(50) NOT NULL,
+  `nom` varchar(50) NOT NULL,
+  `prenom` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone` varchar(30) NOT NULL,
   `password` varchar(500) NOT NULL,
-  `type` varchar(50) NOT NULL
+  `type` varchar(50) NOT NULL,
+  `residence_administrative` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `utilisateurs`
+-- Déchargement des données de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id_utilisateur`, `name`, `firstname`, `email`, `phone`, `password`, `type`) VALUES
-(1, 'Peyre', 'Arthur', 'arth.peyre@gmail.com', '0625503382', '$2y$10$cv3QNJyLqcp4QypshBD2meZENrxlmPbbzISodlGUpvQRjBWF/ZTYy', '');
+INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`, `password`, `type`, `residence_administrative`) VALUES
+(1, 'Peyre', 'Arthur', 'arth.peyre@gmail.com', '0625503382', '$2y$10$cv3QNJyLqcp4QypshBD2meZENrxlmPbbzISodlGUpvQRjBWF/ZTYy', '', ''),
+(3, 'Monlucq', 'Sylvie', 'smonlucq@univ-pau.fr', '0600100220', '$2y$10$9hyqW.5DhRfj1KnJXAUyy.hHBrDixJWUKbnfFvth400xHsqkbd2bC', '', ''),
+(5, 'Thierry', 'Pigot', 'tp@univ-pau.fr', '0611223344', '$2y$10$KyLELOqu/VAxH9lYFq8WOuJiotjXc3krfp17L/H1f22MwPi42vJAS', '', ''),
+(12, 'Mundubeltz', 'Armelle', 'armelle.mundubeltz@univ-pau.fr', '0640070077', '$2y$10$Zks4V0jWYVjwwFRY7.5LaeBa3bpFYQxc8PXH4qT9dhcLjkBtbHWS2', '', '');
 
 --
--- Index pour les tables exportées
+-- Index pour les tables déchargées
 --
 
 --
@@ -204,6 +236,12 @@ ALTER TABLE `lieux`
   ADD PRIMARY KEY (`id_lieu`);
 
 --
+-- Index pour la table `reserver`
+--
+ALTER TABLE `reserver`
+  ADD PRIMARY KEY (`id_trajet`,`id_utilisateur`);
+
+--
 -- Index pour la table `trajets`
 --
 ALTER TABLE `trajets`
@@ -216,34 +254,40 @@ ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`id_utilisateur`);
 
 --
--- AUTO_INCREMENT pour les tables exportées
+-- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
 -- AUTO_INCREMENT pour la table `date`
 --
 ALTER TABLE `date`
-  MODIFY `id_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+
 --
 -- AUTO_INCREMENT pour la table `directions`
 --
 ALTER TABLE `directions`
   MODIFY `id_direction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
 --
 -- AUTO_INCREMENT pour la table `lieux`
 --
 ALTER TABLE `lieux`
   MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
 --
 -- AUTO_INCREMENT pour la table `trajets`
 --
 ALTER TABLE `trajets`
-  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

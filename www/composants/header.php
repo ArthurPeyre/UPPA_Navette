@@ -1,5 +1,6 @@
 <header>
-    <img src="res/images/logo_fr_uppa.png" alt="Logo de la République Françaie et de l'UPPA">
+    <img src="res/images/logo_fr_uppa.png" alt="Logo de la République Française et de l'UPPA"/>
+   
     <nav>
         <ul>
             <?php if (!isset($_SESSION['id_utilisateur'])) { ?>

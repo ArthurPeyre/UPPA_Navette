@@ -16,14 +16,14 @@ session_start();
 </head>
 <body>
     
-    <?php include_once('/composants/header.php'); ?>
+    <?php include_once('./composants/header.php'); ?>
 
     <div id="app">
         
         <?php
-        include_once('/composants/reserver.php');
-        include_once('/composants/reservations.php');
-        include_once('/composants/profil.php');
+        include_once('./composants/reserver.php');
+        include_once('./composants/reservations.php');
+        include_once('./composants/profil.php');
         
         close($conn);
         ?>
