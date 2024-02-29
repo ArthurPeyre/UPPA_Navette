@@ -17,7 +17,7 @@ class TrajetDAO {
     }
 
     public function loadByID($idTrajet) {
-        // Renvoie l'objet Trajet correspondant à l'identifiant passée en paramètre
+        // Renvoie l'objet Trajet correspondant à l'identifiant passé en paramètre
         $sql = "SELECT * FROM trajets WHERE id=:id";
 
         $stmt = $this->conn->prepare($sql);
@@ -31,7 +31,7 @@ class TrajetDAO {
         return $objTrajet;
     }
 
-    public function insertTrajet(Trajet $objTrajet) {
+    public function createTrajet(Trajet $objTrajet) {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO trajets VALUES (:id, :id_date, :id_horaire, :id_direction);";
 

@@ -17,7 +17,7 @@ class ReservationDAO {
     }
 
     public function loadByID($idTrajet, $idUtilisateur) {
-        // Renvoie l'objet Trajet correspondant à l'identifiant passée en paramètre
+        // Renvoie l'objet Reservation correspondant aux identifiants passés en paramètre
         $sql = "SELECT * FROM reserver WHERE id_trajet=:idTrajet AND id_utilisateur=:idUtilisateur";
 
         $stmt = $this->conn->prepare($sql);
