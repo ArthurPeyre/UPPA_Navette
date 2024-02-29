@@ -2,7 +2,7 @@
 include_once('./class.gestionConnexion.php');
 include_once('./class.trajet.php');
 
-class Trajet {
+class TrajetDAO {
     // Variables
     private $conn;
 
