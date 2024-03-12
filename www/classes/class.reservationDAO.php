@@ -32,7 +32,7 @@ class ReservationDAO {
         return $objReservation;
     }
 
-    public function insertReservation(Reservation $objReservation) {
+    public function createReservation(Reservation $objReservation) {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO reserver VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
 

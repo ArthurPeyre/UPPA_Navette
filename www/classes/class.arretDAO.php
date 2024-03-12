@@ -31,7 +31,7 @@ class ArretDAO {
         return $objArret;
     }
 
-    public static function deleteArret(Arret $objArret) {
+    public function deleteArret(Arret $objArret) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
         $sql = "DELETE FROM lieux WHERE id_lieu=:idArret AND ville=:ville AND lieu=:lieu";
 
@@ -45,7 +45,7 @@ class ArretDAO {
         return $bool;
     }
 
-    public static function createArret(Arret $objArret) {
+    public function createArret(Arret $objArret) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
         $sql = "INSERT INTO lieux VALUES (:idArret, :ville, :lieu);";
 
@@ -59,8 +59,8 @@ class ArretDAO {
         return $bool;
     }
 
-    public static function updateArret(Arret $objArret) {
-        // Supprime l'arrêt correspondant à l'objet passé en paramètre
+    public function updateArret(Arret $objArret) {
+        // Modifie l'arrêt correspondant à l'objet passé en paramètre
         $sql = "UPDATE lieux SET ville=:ville, lieu=:lieu WHERE id_lieu=:idArret;";
 
         $stmt = $this->conn->prepare($sql);

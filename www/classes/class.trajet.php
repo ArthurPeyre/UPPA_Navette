@@ -7,11 +7,12 @@ class Trajet {
     private $id_direction;
 
     // Méthodes et fonctions
-    public function __construct($id, $id_date, $id_horaire, $id_direction) {
+    public function __construct($id, $id_date, $id_horaire, $id_direction, $nbPassagers) {
         $this->id = $id;
         $this->id_date = $id_date;
         $this->id_horaire = $id_horaire;
         $this->id_direction = $id_direction;
+        $this->nbPassagers = $nbPassagers;
     }
 
     public function getIdTrajet() {
