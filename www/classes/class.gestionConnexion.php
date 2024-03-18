@@ -10,7 +10,7 @@ class GestionConnexion {
     public static function getConnection() {
         if (is_null(self::$instance)) self::$conn = new GestionConnexion();
 
-        return self::$conn
+        return self::$conn;
     }
 
     // Libérer la connexion à la base de données

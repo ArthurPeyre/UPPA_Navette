@@ -4,7 +4,7 @@ include_once('./class.trajet.php');
 
 class TrajetDAO {
     // Variables
-    private $conn;
+    private $_db;
 
     // Méthodes et fonctions
     public function setConnection(PDO $connection) {
@@ -12,7 +12,7 @@ class TrajetDAO {
     }
 
     public function __construct() {
-        $monPDO=GestionConnexion::getConnexion();
+        $monPDO=GestionConnexion::getConnection();
         $this->setConnection($monPDO);
     }
 
@@ -20,7 +20,7 @@ class TrajetDAO {
         // Renvoie l'objet Trajet correspondant à l'identifiant passé en paramètre
         $sql = "SELECT * FROM trajets WHERE id=:id";
 
-        $stmt = $this->conn->prepare($sql);
+        $stmt = $this->_db->prepare($sql);
         $stmt->bindParam(':id', $idTrajet);
         $stmt->execute();
 
@@ -35,12 +35,26 @@ class TrajetDAO {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO trajets VALUES (:id, :id_date, :id_horaire, :id_direction);";
 
-        $stmt = $_db->prepare($sql);
+        $stmt = $this->_db->prepare($sql);
 
         $stmt->bindParam(':id', $objTrajet->getIdTrajet());
-        $stmt->bindParam(':id_date', $objTrajet->getIdDate());
-        $stmt->bindParam(':id_horaire', $objTrajet->getIdHoraire());
-        $stmt->bindParam(':id_direction', $objTrajet->getIdDirection());
+        $stmt->bindParam(':id_date', $objTrajet->getDate());
+        $stmt->bindParam(':id_horaire', $objTrajet->getHoraire());
+        $stmt->bindParam(':id_direction', $objTrajet->getDirection());
+
+        $bool = ($stmt->execute());
+
+        return $bool;
+    }
+
+    public function deleteTrajet(Trajet $objTrajet){
+        $sql = "Insert into trajets Values (:id, :date, :horaire, :direction);";
+        $stmt = $this->_db->prepare($sql);
+
+        $stmt->bindParam(':id', $objTrajet->getIdTrajet());
+        $stmt->bindParam(':id_date', $objTrajet->getDate());
+        $stmt->bindParam(':id_horaire', $objTrajet->getHoraire());
+        $stmt->bindParam(':id_direction', $objTrajet->getDirection());
 
         $bool = ($stmt->execute());
 

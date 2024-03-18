@@ -2,33 +2,33 @@
 class Trajet {
     // Variables
     private $id;
-    private $id_date;
-    private $id_horaire;
-    private $id_direction;
+    private $date;
+    private $horaire;
+    private $direction;
+    private $canceled = false;
 
     // Méthodes et fonctions
-    public function __construct($id, $id_date, $id_horaire, $id_direction, $nbPassagers) {
+    public function __construct($id, $id_date, $id_horaire, $id_direction) {
         $this->id = $id;
-        $this->id_date = $id_date;
-        $this->id_horaire = $id_horaire;
-        $this->id_direction = $id_direction;
-        $this->nbPassagers = $nbPassagers;
+        $this->date = $id_date;
+        $this->horaire = $id_horaire;
+        $this->direction = $id_direction;
     }
 
     public function getIdTrajet() {
         return $this->id;
     }
 
-    public function getIdDate() {
-        return $this->id_date;
+    public function getDate() {
+        return $this->date;
     }
 
-    public function getIdHoraire() {
+    public function getHoraire() {
         return $this->horaire;
     }
 
-    public function getIdDirection() {
-        return $this->id_direction;
+    public function getDirection() {
+        return $this->direction;
     }
 }
 ?>

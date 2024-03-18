@@ -1,5 +1,5 @@
 <?php
-class Date {
+class Date{
     // Variables
     private $id_date;
     private $date;

@@ -12,7 +12,7 @@ class DateDAO {
     }
 
     public function __construct() {
-        $monPDO=GestionConnexion::getConnexion();
+        $monPDO=GestionConnexion::getConnection();
         $this->setConnection($monPDO);
     }
 
@@ -35,10 +35,11 @@ class DateDAO {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO date VALUES (:id, :date);";
 
-        $stmt = $conn->prepare($sql);
-
-        $stmt->bindParam(':id', $objDate->getIdDate());
-        $stmt->bindParam(':date', $objDate->getDate());
+        $stmt = $this->conn->prepare($sql);
+        $Id = $objDate->getIdDate();
+        $laDate = $objDate->getDate();
+        $stmt->bindParam(':id', $Id);
+        $stmt->bindParam(':date', $laDate);
 
         $bool = ($stmt->execute());
 
@@ -49,10 +50,12 @@ class DateDAO {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "DELETE date WHERE id_date=:id AND date=:date;";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(':id', $objDate->getIdDate());
-        $stmt->bindParam(':date', $objDate->getDate());
+        $Id = $objDate->getIdDate();
+        $laDate = $objDate->getDate();
+        $stmt->bindParam(':id', $Id);
+        $stmt->bindParam(':date', $laDate);
 
         $bool = ($stmt->execute());
 
