@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1
+-- http://www.phpmyadmin.net
 --
--- Hôte : localhost:8889
--- Généré le : lun. 18 mars 2024 à 09:24
--- Version du serveur : 5.7.39
--- Version de PHP : 7.4.33
+-- Client :  localhost
+-- Généré le :  Lun 18 Mars 2024 à 09:34
+-- Version du serveur :  5.7.11
+-- Version de PHP :  5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -18,8 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `uppa_navette`
+-- Base de données :  `uppa_navette`
 --
+CREATE DATABASE IF NOT EXISTS `uppa_navette` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `uppa_navette`;
 
 -- --------------------------------------------------------
 
@@ -32,7 +33,7 @@ CREATE TABLE `date` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `date`
+-- Contenu de la table `date`
 --
 
 INSERT INTO `date` (`date`) VALUES
@@ -72,7 +73,7 @@ CREATE TABLE `horaire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `horaire`
+-- Contenu de la table `horaire`
 --
 
 INSERT INTO `horaire` (`id_horaire`, `hourStart`, `hourFinish`) VALUES
@@ -95,7 +96,7 @@ CREATE TABLE `reserver` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `reserver`
+-- Contenu de la table `reserver`
 --
 
 INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_start`, `id_finish`) VALUES
@@ -118,7 +119,7 @@ CREATE TABLE `station` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `station`
+-- Contenu de la table `station`
 --
 
 INSERT INTO `station` (`id`, `ville`, `lieu`) VALUES
@@ -140,12 +141,12 @@ CREATE TABLE `terminal` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `terminal`
+-- Contenu de la table `terminal`
 --
 
 INSERT INTO `terminal` (`direction`) VALUES
-('Pau'),
-('Anglet');
+('Anglet'),
+('Pau');
 
 -- --------------------------------------------------------
 
@@ -162,7 +163,7 @@ CREATE TABLE `trajets` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `trajets`
+-- Contenu de la table `trajets`
 --
 
 INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `direction`, `cancel`) VALUES
@@ -195,7 +196,7 @@ CREATE TABLE `utilisateurs` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Déchargement des données de la table `utilisateurs`
+-- Contenu de la table `utilisateurs`
 --
 
 INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`, `password`, `type`, `residence_administrative`) VALUES
@@ -205,7 +206,7 @@ INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`,
 (12, 'Mundubeltz', 'Armelle', 'armelle.mundubeltz@univ-pau.fr', '0640070077', '$2y$10$Zks4V0jWYVjwwFRY7.5LaeBa3bpFYQxc8PXH4qT9dhcLjkBtbHWS2', '', '');
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables exportées
 --
 
 --
@@ -233,6 +234,12 @@ ALTER TABLE `station`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `terminal`
+--
+ALTER TABLE `terminal`
+  ADD PRIMARY KEY (`direction`);
+
+--
 -- Index pour la table `trajets`
 --
 ALTER TABLE `trajets`
@@ -245,7 +252,7 @@ ALTER TABLE `utilisateurs`
   ADD PRIMARY KEY (`id_utilisateur`);
 
 --
--- AUTO_INCREMENT pour les tables déchargées
+-- AUTO_INCREMENT pour les tables exportées
 --
 
 --
@@ -253,20 +260,16 @@ ALTER TABLE `utilisateurs`
 --
 ALTER TABLE `station`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT pour la table `trajets`
 --
 ALTER TABLE `trajets`
   MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
   MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
