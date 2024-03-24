@@ -2,11 +2,11 @@
 include_once 'class.gestionConnexion.php';
 include_once 'class.user.php';
 
-class UserDAO{
-    private $conn
-    ;
+class UserDAO {
+    private $conn;
+
     public function setDb(PDO $db){
-        $this->_db = $db;
+        $this->conn = $db;
     }
     
     public function __construct(){
@@ -14,58 +14,52 @@ class UserDAO{
  	   $this->setDb($monPDO);
     }
 
-    public function addReservation(Reservation $theReservation){
+    public function addReservation(Reservation $laReservation){
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieuArrivee`) VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
 
         $stmt = $this->conn->prepare($sql);
 
-        $idTraj = $theReservation->getIdTrajet() ;
-        $idUtil = $theReservation->getIdUtilisateur() ;
-        $lieuDep = $theReservation->getIdLieuDepart() ;
-        $lieuArr = $theReservation->getIdLieuArrivee() ;
+        $idTrajet = $laReservation->getIdTrajet() ;
+        $idUtilisateur = $laReservation->getIdUtilisateur() ;
+        $lieuDepart = $laReservation->getIdLieuDepart() ;
+        $lieuArrivee = $laReservation->getIdLieuArrivee() ;
 
-        $stmt->bindParam(':id_trajet', $idTraj);
-        $stmt->bindParam(':id_utilisateur', $idUtil);
-        $stmt->bindParam(':id_lieuDepart', $lieuDep);
-        $stmt->bindParam(':id_lieuArrivee', $lieuArr);
+        $stmt->bindParam(':id_trajet', $idTrajet);
+        $stmt->bindParam(':id_utilisateur', $idUtilisateur);
+        $stmt->bindParam(':id_lieuDepart', $lieuDepart);
+        $stmt->bindParam(':id_lieuArrivee', $lieuArrivee);
 
         $bool = ($stmt->execute());
 
         return $bool;
     }
 
-    public function create(User $theUser){
-        $sql = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`, `password`, `residence_administrative`) VALUES (:id_utilisateur, :nom_utilisateur, :prenom_utilisateur, :email_utilisateur, :phone_utilisateur, :password_utilisateur, :ra_utilisateur);";
+    public function create(User $lUtilisateur){
+        $sql = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `telephone`, `motDePasse`, `residenceAdministrative`) VALUES (:id_utilisateur, :nom_utilisateur, :prenom_utilisateur, :email_utilisateur, :telephone_utilisateur, :motDePasse_utilisateur, :residenceAdministrative_utilisateur);";
 
         $stmt = $this->conn->prepare($sql);
-
-        $idUser = $theUser->getId();
-        $nomUser = $theUser->getName();
-        $prenomUser = $theUser->getFirstname();
-        $emailUser = $theUser->getEmail();
-        $phoneUser = $theUser->getPhone();
-        $passwordUser = $theUser->getPassword();
-        $raUser = $theUser->getAdministrativeResidence();
+        
+        $idUtilisateur = $lUtilisateur->getId();
+        $nomUtilisateur = $lUtilisateur->getNom();
+        $prenomUtilisateur = $lUtilisateur->getPrenom();
+        $emailUtilisateur = $lUtilisateur->getEmail();
+        $telephoneUtilisateur = $lUtilisateur->getTelephone();
+        $motDePasseUtilisateur = $lUtilisateur->getMotDePasse();
+        $residenceAdministrativeUtilisateur = $lUtilisateur->getResidenceAdministrative();
         
 
-        $stmt->bindParam(':id_utilisateur', $idUser);
-        $stmt->bindParam(':nom_utilisateur', $nomUser);
-        $stmt->bindParam(':prenom_utilisateur', $prenomUser);
-        $stmt->bindParam(':email_utilisateur', $emailUser);
-        $stmt->bindParam(':phone_utilisateur', $phoneUser);
-        $stmt->bindParam(':password_utilisateur', $passwordUser); 
-        $stmt->bindParam(':ra_utilisateur', $raUser);    
+        $stmt->bindParam(':id_utilisateur', $idUtilisateur);
+        $stmt->bindParam(':nom_utilisateur', $nomUtilisateur);
+        $stmt->bindParam(':prenom_utilisateur', $prenomUtilisateur);
+        $stmt->bindParam(':email_utilisateur', $emailUtilisateur);
+        $stmt->bindParam(':telephone_utilisateur', $telephoneUtilisateur);
+        $stmt->bindParam(':motDePasse_utilisateur', $motDePasseUtilisateur); 
+        $stmt->bindParam(':residenceAdministrative_utilisateur', $residenceAdministrativeUtilisateur);    
 
         $bool = ($stmt->execute());
 
         return $bool;
     }
-
-
-
-
-
 }
-
 ?>

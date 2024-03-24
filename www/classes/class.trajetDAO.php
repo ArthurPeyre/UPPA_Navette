@@ -8,7 +8,7 @@ class TrajetDAO {
 
     // Méthodes et fonctions
     public function setConnection(PDO $connection) {
-        $this->conn = $connection;
+        $this->_db = $connection;
     }
 
     public function __construct() {

@@ -2,71 +2,72 @@
 
 class User{
     private int $id;
-    private String $name, $firstname, $email, $phone, $administrative_residence, $password;
+    private String $nom, $prenom, $email, $telephone, $residenceAdministrative, $motDePasse;
 
-    public function __construct($theId, $theName, $theFirstname, $theMail, $thePhone, $theAdministrativeResidence, $thePassword){
-        $this->id = $theId;
-        $this->name = $theName;
-        $this->firstname = $theFirstname;
-        $this->email = $theMail ; 
-        $this->phone = $thePhone ;
-        $this->administrative_residence = $theAdministrativeResidence ;
-        $this->password = $thePassword ;
+    public function __construct($lId, $leNom, $lePrenom, $leMail, $leTelephone, $laResidenceAdministrative, $leMotDePasse){
+        $this->id = $lId;
+        $this->nom = $leNom;
+        $this->prenom = $lePrenom;
+        $this->email = $leMail ; 
+        $this->telephone = $leTelephone ;
+        $this->residenceAdministrative = $laResidenceAdministrative ;
+        $this->motDePasse = $leMotDePasse ;
     }
 
     public function getId(){
         return $this->id;
     }
 
-    public function getName(){
-        return $this->name;
+    public function getNom(){
+        return $this->nom;
     }
 
-    public function getFirstname(){
-        return $this->firstname;
+    public function getPrenom(){
+        return $this->prenom;
     }
 
     public function getEmail(){
         return $this->email;
     }
 
-    public function getPhone(){
-        return $this->phone;
+    public function getTelephone(){
+        return $this->telephone;
     }
 
-    public function getAdministrativeResidence(){
-        return $this->administrative_residence;
-    }
-    public function getPassword(){
-        return $this->password;
+    public function getResidenceAdministrative(){
+        return $this->residenceAdministrative;
     }
 
-    public function setId($theId){
-        $this->id = $theId ;
+    public function getMotDePasse(){
+        return $this->motDePasse;
     }
 
-    public function setName($theName){
-        $this->name = $theName ;
+    public function setId($lId){
+        $this->id = $lId ;
     }
 
-    public function setFirstname($theFirstname){
-        $this->firstname = $theFirstname ;
+    public function setNom($leNom){
+        $this->nom = $leNom ;
     }
 
-    public function setEmail($theMail){
-        $this->email = $theMail ;
+    public function setPrenom($lePrenom){
+        $this->prenom = $lePrenom ;
     }
 
-    public function setPhone($thePhone){
-        $this->phone = $thePhone ;
+    public function setEmail($leMail){
+        $this->email = $leMail ;
     }
 
-    public function setAdministrativeResidence($theAdministrativeResidence){
-        $this->administrative_residence = $theAdministrativeResidence ;
-    }
-    public function setPassword($thePassword){
-        $this->password = $thePassword ;
+    public function setTelephone($leTelephone){
+        $this->telephone = $leTelephone ;
     }
 
+    public function setResidenceAdministrative($laResidenceAdministrative){
+        $this->residenceAdministrative = $laResidenceAdministrative ;
+    }
+
+    public function setMotDePasse($leMotDePasse){
+        $this->motDePasse = $leMotDePasse ;
+    }
 }
 ?>
