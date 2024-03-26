@@ -5,7 +5,7 @@ class Trajet {
     private $date;
     private $horaire;
     private $direction;
-    private $canceled = false;
+    private $annule = false;
 
     // Méthodes et fonctions
     public function __construct($id, $id_date, $id_horaire, $id_direction) {
