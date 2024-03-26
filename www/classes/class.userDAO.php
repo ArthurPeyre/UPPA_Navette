@@ -14,7 +14,7 @@ class UserDAO {
  	   $this->setDb($monPDO);
     }
 
-    public function addReservation(Reservation $laReservation){
+    public function ajouterReservation(Reservation $laReservation){
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieuArrivee`) VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
 
@@ -35,7 +35,7 @@ class UserDAO {
         return $bool;
     }
 
-    public function create(User $lUtilisateur){
+    public function creer(User $lUtilisateur){
         $sql = "INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `telephone`, `motDePasse`, `residenceAdministrative`) VALUES (:id_utilisateur, :nom_utilisateur, :prenom_utilisateur, :email_utilisateur, :telephone_utilisateur, :motDePasse_utilisateur, :residenceAdministrative_utilisateur);";
 
         $stmt = $this->conn->prepare($sql);
@@ -60,6 +60,13 @@ class UserDAO {
         $bool = ($stmt->execute());
 
         return $bool;
+    }
+    public function supprimer(User $lUtilisateur){
+        $sql="DELETE * from `utilisateurs` WHERE `id_utilisateur`==:id_utilisateur;
+        $stmt = $this->conn->prepare($sql);
+        $idUtilisateur = $lUtilisateur->getId();
+        $stmt->bindParam(':id_utilisateur', $idUtilisateur);
+
     }
 }
 ?>

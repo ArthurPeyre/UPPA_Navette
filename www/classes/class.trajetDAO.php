@@ -10,7 +10,6 @@ class TrajetDAO {
     public function setConnection(PDO $connection) {
         $this->_db = $connection;
     }
-
     public function __construct() {
         $monPDO=GestionConnexion::getConnection();
         $this->setConnection($monPDO);
