@@ -16,27 +16,11 @@ class DateDAO {
         $this->setConnection($monPDO);
     }
 
-    public function loadByID($idDate) {
-        // Renvoie l'objet Date correspondant à l'identifiant passé en paramètre
-        $sql = "SELECT * FROM date WHERE id_date=:id";
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':id', $idDate);
-        $stmt->execute();
-
-        $tuple = $stmt->fetch();
-
-        $objDate = new Trajet($tuple['id_date'], $tuple['date']);
-        
-        return $objDate;
-    }
-
-    public function createDate(Date $objDate) {
+    public function creerDate(Date $objDate) {
         // Enregistre dans la base l'objet passé en paramètre
-        $sql = "INSERT INTO date VALUES (:id, :date);";
+        $sql = "INSERT INTO date VALUES (:date);";
 
         $stmt = $this->conn->prepare($sql);
-        $Id = $objDate->getIdDate();
         $laDate = $objDate->getDate();
         $stmt->bindParam(':id', $Id);
         $stmt->bindParam(':date', $laDate);
@@ -46,20 +30,31 @@ class DateDAO {
         return $bool;
     }
 
-    public function deleteDate(Date $objDate) {
+    public function supprimerDate(Date $objDate) {
         // Enregistre dans la base l'objet passé en paramètre
-        $sql = "DELETE date WHERE id_date=:id AND date=:date;";
+        $sql = "DELETE date WHERE date=:date;";
 
         $stmt = $this->conn->prepare($sql);
 
-        $Id = $objDate->getIdDate();
         $laDate = $objDate->getDate();
-        $stmt->bindParam(':id', $Id);
         $stmt->bindParam(':date', $laDate);
 
         $bool = ($stmt->execute());
 
         return $bool;
+    }
+
+    public function getToutesDates(){
+        $toutesLesDates = array();
+        $sql ="Select * From Date Where date >= NOW() order by date asc";
+        $resultatRequete = $this->conn->query($sql);
+        $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
+        while($leTuple!=NULL){
+            $laDate = new Date($leTuple['date']);
+            $toutesLesDates[] = $laDate;
+            $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
+        }
+        return $toutesLesDates;
     }
 }
 ?>

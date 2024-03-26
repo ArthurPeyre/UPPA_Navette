@@ -37,10 +37,14 @@ class TrajetDAO {
 
         $stmt = $this->_db->prepare($sql);
 
-        $stmt->bindParam(':id', $objTrajet->getIdTrajet());
-        $stmt->bindParam(':id_date', $objTrajet->getDate());
-        $stmt->bindParam(':id_horaire', $objTrajet->getHoraire());
-        $stmt->bindParam(':id_direction', $objTrajet->getDirection());
+        $id = $objTrajet->getIdTrajet();
+        $stmt->bindParam(':id', $id);
+        $date = $objTrajet->getDate();
+        $stmt->bindParam(':id_date', $date);
+        $horaire = $objTrajet->getHoraire();
+        $stmt->bindParam(':id_horaire', $horaire);
+        $direction = $objTrajet->getDirection();
+        $stmt->bindParam(':id_direction', $direction);
 
         $bool = ($stmt->execute());
 
@@ -51,14 +55,111 @@ class TrajetDAO {
         $sql = "Insert into trajets Values (:id, :date, :horaire, :direction);";
         $stmt = $this->_db->prepare($sql);
 
-        $stmt->bindParam(':id', $objTrajet->getIdTrajet());
-        $stmt->bindParam(':id_date', $objTrajet->getDate());
-        $stmt->bindParam(':id_horaire', $objTrajet->getHoraire());
-        $stmt->bindParam(':id_direction', $objTrajet->getDirection());
+        $id = $objTrajet->getIdTrajet();
+        $stmt->bindParam(':id', $id);
+        $date = $objTrajet->getDate();
+        $stmt->bindParam(':id_date', $date);
+        $horaire = $objTrajet->getHoraire();
+        $stmt->bindParam(':id_horaire', $horaire);
+        $direction = $objTrajet->getDirection();
+        $stmt->bindParam(':id_direction', $direction);
 
         $bool = ($stmt->execute());
 
         return $bool;
+    }
+
+    public function getToutLesTajets(){
+        $sql = "SELECT * FROM trajets WHERE 1";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+    
+    public function getToutLesTajetsParIdDate($idDate){
+        $sql = "SELECT * FROM trajets WHERE id_date=".$idDate."";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+
+    
+    public function getToutLesTajetsParIdHoraire($idHoraire){
+        $sql = "SELECT * FROM trajets WHERE id_horaire=".$idHoraire."";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+
+    public function getToutLesTajetsAnnules(){
+        $sql = "SELECT * FROM trajets WHERE cancel= TRUE";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+
+    public function getToutLesTajetsPasAnnules(){
+        $sql = "SELECT * FROM trajets WHERE cancel= FALSE";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+
+    
+    public function getToutLesTajetsParIdDirection($idDirection){
+        $sql = "SELECT * FROM trajets WHERE direction=".$idDirection."";
+        $stmt = $this->_db->prepare($sql);
+        $stmt->execute();
+        $lesTuples = $stmt->fetchall(PDO::FETCH_ASSOC);
+        $tabTrajets = array();
+        foreach($lesTuples as $leTuple){
+            $objTrajet = new Trajet($leTuple['id_trajet'], $leTuple['id_date'], $leTuple['id_horaire'], $leTuple['id_direction']);
+            $tabTrajets[] = $objTrajet;
+        }
+        return $tabTrajets;
+    }
+
+    public function getToutesLesStations($idTrajet){
+        $sql = "SELECT * FROM trajets WHERE id_trajet='".$idTrajet."'";
+        $resultatRequete = $this->_db->query($sql);
+        $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
+        $toutesLesStations = array();
+        while($leTuple!=NULL){
+            $laStation = new Station();
+            $toutesLesStations[] = $laStation;
+            $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
+        }
+        return $toutesLesStations;
     }
 }
 ?>
