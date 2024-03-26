@@ -62,7 +62,7 @@ class UserDAO {
         return $bool;
     }
     public function supprimer(User $lUtilisateur){
-        $sql="DELETE * from `utilisateurs` WHERE `id_utilisateur`==:id_utilisateur;
+        $sql="DELETE * from `utilisateurs` WHERE `id_utilisateur`==:id_utilisateur";
         $stmt = $this->conn->prepare($sql);
         $idUtilisateur = $lUtilisateur->getId();
         $stmt->bindParam(':id_utilisateur', $idUtilisateur);
