@@ -24,7 +24,7 @@ class Reservation {
 
     // id_utilisateur
     public function getIdUtilisateur() {
-        return $this->id_utilisateurr;
+        return $this->id_utilisateur;
     }
     public function setIdUtilisateur($idUtilisateur) {
         $this->id_utilisateurr = $idUtilisateur;
