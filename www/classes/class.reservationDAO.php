@@ -12,7 +12,7 @@ class ReservationDAO {
     }
 
     public function __construct() {
-        $monPDO=GestionConnexion::getConnexion();
+        $monPDO=GestionConnexion::getConnection();
         $this->setConnection($monPDO);
     }
 
@@ -36,7 +36,7 @@ class ReservationDAO {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO reserver VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
 
-        $stmt = $_db->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':id_trajet', $objReservation->getIdTrajet());
         $stmt->bindParam(':id_utilisateur', $objReservation->getIdUtilisateur());
