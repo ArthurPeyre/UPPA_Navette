@@ -22,7 +22,7 @@ class DateDAO {
 
         $stmt = $this->conn->prepare($sql);
         $laDate = $objDate->getDate();
-        $stmt->bindParam(':id', $Id);
+        $stmt->bindParam(':id', $id);
         $stmt->bindParam(':date', $laDate);
 
         $bool = ($stmt->execute());
