@@ -154,7 +154,7 @@ class TrajetDAO {
         $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
         $toutesLesStations = array();
         while($leTuple!=NULL){
-            $laStation = new Station();
+            $laStation = new Station($leTuple['id'],$leTuple['ville'],$leTuple['lieu']);
             $toutesLesStations[] = $laStation;
             $leTuple = $resultatRequete->fetch(PDO::FETCH_ASSOC);
         }

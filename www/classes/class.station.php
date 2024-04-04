@@ -9,7 +9,7 @@ class Station{
         $this->id = $lId;
         $this->ville = $laVille;
         $this->lieu = $leLieu;
- }
+    }
 
     public function getId(){
         return $this->id;
@@ -34,5 +34,7 @@ class Station{
     public function setLieu($leLieu){
         $this->lieu = $leLieu;
     }
+
+
     
 }
