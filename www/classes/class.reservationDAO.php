@@ -38,10 +38,16 @@ class ReservationDAO {
 
         $stmt = $this->conn->prepare($sql);
 
-        $stmt->bindParam(':id_trajet', $objReservation->getIdTrajet());
-        $stmt->bindParam(':id_utilisateur', $objReservation->getIdUtilisateur());
-        $stmt->bindParam(':id_lieuDepart', $objReservation->getIdLieuDepart());
-        $stmt->bindParam(':id_lieuArrivee', $objReservation->getIdLieuArrivee());
+        $id_trajet = $objReservation->getIdTrajet();
+        $id_utilisateur = $objReservation->getIdUtilisateur();
+        $id_lieuDepart = $objReservation->getIdLieuDepart();
+        $id_lieuArrivee = $objReservation->getIdLieuArrivee();
+
+        $stmt->bindParam(':id_trajet', $id_trajet);
+        $stmt->bindParam(':id_utilisateur', $id_utilisateur);
+        $stmt->bindParam(':id_lieuDepart', $id_lieuDepart);
+        $stmt->bindParam(':id_lieuArrivee', $id_lieuArrivee);
+
 
         $bool = ($stmt->execute());
 
