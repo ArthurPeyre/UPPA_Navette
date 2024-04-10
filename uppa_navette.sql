@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Lun 18 Mars 2024 à 09:34
+-- Généré le :  Mar 09 Avril 2024 à 21:29
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.18
 
@@ -29,6 +29,7 @@ USE `uppa_navette`;
 --
 
 CREATE TABLE `date` (
+  `id_date` int(11) NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -36,29 +37,48 @@ CREATE TABLE `date` (
 -- Contenu de la table `date`
 --
 
-INSERT INTO `date` (`date`) VALUES
-('2024-01-27'),
-('2024-01-28'),
-('2024-01-29'),
-('2024-01-30'),
-('2024-01-31'),
-('2024-02-01'),
-('2024-02-02'),
-('2024-02-03'),
-('2024-02-06'),
-('2024-02-08'),
-('2024-02-13'),
-('2024-02-15'),
-('2024-02-20'),
-('2024-02-22'),
-('2024-02-28'),
-('2024-03-05'),
-('2024-03-07'),
-('2024-03-12'),
-('2024-03-14'),
-('2024-03-19'),
-('2024-03-21'),
-('2024-03-26');
+INSERT INTO `date` (`id_date`, `date`) VALUES
+(1, '2024-01-28'),
+(2, '2024-01-29'),
+(3, '2024-01-27'),
+(4, '2024-01-30'),
+(5, '2024-01-31'),
+(6, '2024-02-01'),
+(7, '2024-02-02'),
+(8, '2024-02-03'),
+(9, '2024-02-06'),
+(10, '2024-02-08'),
+(11, '2024-02-13'),
+(12, '2024-02-15'),
+(13, '2024-02-20'),
+(14, '2024-02-22'),
+(15, '2024-03-05'),
+(16, '2024-03-07'),
+(17, '2024-03-12'),
+(18, '2024-03-14'),
+(19, '2024-03-19'),
+(20, '2024-03-21'),
+(21, '2024-03-26'),
+(22, '2024-02-28');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `directions`
+--
+
+CREATE TABLE `directions` (
+  `id_direction` int(11) NOT NULL,
+  `label` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Contenu de la table `directions`
+--
+
+INSERT INTO `directions` (`id_direction`, `label`) VALUES
+(1, 'Anglet'),
+(2, 'Pau');
 
 -- --------------------------------------------------------
 
@@ -68,15 +88,15 @@ INSERT INTO `date` (`date`) VALUES
 
 CREATE TABLE `horaire` (
   `id_horaire` int(11) NOT NULL,
-  `hourStart` varchar(5) NOT NULL,
-  `hourFinish` varchar(5) NOT NULL
+  `heureDepart` varchar(5) NOT NULL,
+  `heureArrivee` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `horaire`
 --
 
-INSERT INTO `horaire` (`id_horaire`, `hourStart`, `hourFinish`) VALUES
+INSERT INTO `horaire` (`id_horaire`, `heureDepart`, `heureArrivee`) VALUES
 (1, '8h00', '9h30'),
 (2, '10h00', '11h30'),
 (3, '17h00', '18h30'),
@@ -85,44 +105,20 @@ INSERT INTO `horaire` (`id_horaire`, `hourStart`, `hourFinish`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `reserver`
+-- Structure de la table `lieux`
 --
 
-CREATE TABLE `reserver` (
-  `id_trajet` int(11) NOT NULL,
-  `id_utilisateur` int(11) NOT NULL,
-  `id_start` int(11) NOT NULL,
-  `id_finish` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contenu de la table `reserver`
---
-
-INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_start`, `id_finish`) VALUES
-(3, 3, 1, 5),
-(4, 12, 1, 6),
-(11, 3, 1, 6),
-(11, 12, 1, 6),
-(12, 12, 6, 1);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `station`
---
-
-CREATE TABLE `station` (
-  `id` int(11) NOT NULL,
+CREATE TABLE `lieux` (
+  `id_lieu` int(11) NOT NULL,
   `ville` varchar(50) NOT NULL,
   `lieu` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `station`
+-- Contenu de la table `lieux`
 --
 
-INSERT INTO `station` (`id`, `ville`, `lieu`) VALUES
+INSERT INTO `lieux` (`id_lieu`, `ville`, `lieu`) VALUES
 (1, 'Pau', 'Parking Cap Sud'),
 (2, 'Lescar', 'Aire de covoiturage'),
 (3, 'Orthez', 'Entrée / Sortie d\'autoroute'),
@@ -133,20 +129,30 @@ INSERT INTO `station` (`id`, `ville`, `lieu`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `terminal`
+-- Structure de la table `reserver`
 --
 
-CREATE TABLE `terminal` (
-  `direction` varchar(30) NOT NULL
+CREATE TABLE `reserver` (
+  `id_trajet` int(11) NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
+  `id_lieuDepart` int(11) NOT NULL,
+  `id_lieuArrivee` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Contenu de la table `terminal`
+-- Contenu de la table `reserver`
 --
 
-INSERT INTO `terminal` (`direction`) VALUES
-('Anglet'),
-('Pau');
+INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieuArrivee`) VALUES
+(3, 3, 1, 5),
+(4, 12, 1, 6),
+(11, 3, 1, 6),
+(11, 12, 1, 6),
+(12, 12, 6, 1),
+(13, 1, 1, 6),
+(14, 1, 1, 6),
+(15, 1, 1, 6),
+(16, 1, 1, 6);
 
 -- --------------------------------------------------------
 
@@ -158,25 +164,28 @@ CREATE TABLE `trajets` (
   `id_trajet` int(11) NOT NULL,
   `id_date` int(11) NOT NULL,
   `id_horaire` int(11) NOT NULL,
-  `direction` varchar(30) NOT NULL,
-  `cancel` tinyint(1) DEFAULT NULL
+  `id_direction` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `trajets`
 --
 
-INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `direction`, `cancel`) VALUES
-(3, 11, 1, '1', NULL),
-(4, 13, 1, '1', NULL),
-(5, 11, 3, '2', NULL),
-(6, 14, 4, '1', NULL),
-(7, 22, 1, '1', NULL),
-(8, 13, 3, '2', NULL),
-(9, 17, 1, '1', NULL),
-(10, 14, 1, '1', NULL),
-(11, 15, 1, '1', NULL),
-(12, 15, 3, '2', NULL);
+INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `id_direction`) VALUES
+(3, 11, 1, 1),
+(4, 13, 1, 1),
+(5, 11, 3, 2),
+(6, 14, 4, 1),
+(7, 22, 1, 1),
+(8, 13, 3, 2),
+(9, 17, 1, 1),
+(10, 14, 1, 1),
+(11, 15, 1, 1),
+(12, 15, 3, 2),
+(13, 21, 1, 1),
+(14, 21, 2, 1),
+(15, 21, 3, 1),
+(16, 21, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -191,19 +200,21 @@ CREATE TABLE `utilisateurs` (
   `email` varchar(100) NOT NULL,
   `phone` varchar(30) NOT NULL,
   `password` varchar(500) NOT NULL,
-  `type` varchar(50) NOT NULL,
-  `residence_administrative` varchar(50) NOT NULL
+  `type` int(11) NOT NULL,
+  `residence_administrative` varchar(50) NOT NULL,
+  `derniereConnexion` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Contenu de la table `utilisateurs`
 --
 
-INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`, `password`, `type`, `residence_administrative`) VALUES
-(1, 'Peyre', 'Arthur', 'arth.peyre@gmail.com', '0625503382', '$2y$10$cv3QNJyLqcp4QypshBD2meZENrxlmPbbzISodlGUpvQRjBWF/ZTYy', '', ''),
-(3, 'Monlucq', 'Sylvie', 'smonlucq@univ-pau.fr', '0600100220', '$2y$10$9hyqW.5DhRfj1KnJXAUyy.hHBrDixJWUKbnfFvth400xHsqkbd2bC', '', ''),
-(5, 'Thierry', 'Pigot', 'tp@univ-pau.fr', '0611223344', '$2y$10$KyLELOqu/VAxH9lYFq8WOuJiotjXc3krfp17L/H1f22MwPi42vJAS', '', ''),
-(12, 'Mundubeltz', 'Armelle', 'armelle.mundubeltz@univ-pau.fr', '0640070077', '$2y$10$Zks4V0jWYVjwwFRY7.5LaeBa3bpFYQxc8PXH4qT9dhcLjkBtbHWS2', '', '');
+INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`, `password`, `type`, `residence_administrative`, `derniereConnexion`) VALUES
+(1, 'Peyre', 'Arthur', 'arth.peyre@gmail.com', '0625503382', '$2y$10$cv3QNJyLqcp4QypshBD2meZENrxlmPbbzISodlGUpvQRjBWF/ZTYy', 1, '', '2024-04-08'),
+(3, 'Monlucq', 'Sylvie', 'smonlucq@univ-pau.fr', '0600100220', '$2y$10$9hyqW.5DhRfj1KnJXAUyy.hHBrDixJWUKbnfFvth400xHsqkbd2bC', 0, '', '0000-00-00'),
+(5, 'Thierry', 'Pigot', 'tp@univ-pau.fr', '0611223344', '$2y$10$KyLELOqu/VAxH9lYFq8WOuJiotjXc3krfp17L/H1f22MwPi42vJAS', 0, '', '0000-00-00'),
+(12, 'Mundubeltz', 'Armelle', 'armelle.mundubeltz@univ-pau.fr', '0640070077', '$2y$10$Zks4V0jWYVjwwFRY7.5LaeBa3bpFYQxc8PXH4qT9dhcLjkBtbHWS2', 0, '', '0000-00-00'),
+(13, 'David', 'Pierre', 'pierre.david@outlook.fr', '0654862498', '$2y$10$sW9bilowzm.pyu0Swo0VqOpVzrBJbbXNh/Vu0oycfxpbbOr4/PvM.', 0, '', '2024-04-01');
 
 --
 -- Index pour les tables exportées
@@ -213,7 +224,13 @@ INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`,
 -- Index pour la table `date`
 --
 ALTER TABLE `date`
-  ADD PRIMARY KEY (`date`);
+  ADD PRIMARY KEY (`id_date`);
+
+--
+-- Index pour la table `directions`
+--
+ALTER TABLE `directions`
+  ADD PRIMARY KEY (`id_direction`);
 
 --
 -- Index pour la table `horaire`
@@ -222,22 +239,16 @@ ALTER TABLE `horaire`
   ADD PRIMARY KEY (`id_horaire`);
 
 --
+-- Index pour la table `lieux`
+--
+ALTER TABLE `lieux`
+  ADD PRIMARY KEY (`id_lieu`);
+
+--
 -- Index pour la table `reserver`
 --
 ALTER TABLE `reserver`
   ADD PRIMARY KEY (`id_trajet`,`id_utilisateur`);
-
---
--- Index pour la table `station`
---
-ALTER TABLE `station`
-  ADD PRIMARY KEY (`id`);
-
---
--- Index pour la table `terminal`
---
-ALTER TABLE `terminal`
-  ADD PRIMARY KEY (`direction`);
 
 --
 -- Index pour la table `trajets`
@@ -256,20 +267,30 @@ ALTER TABLE `utilisateurs`
 --
 
 --
--- AUTO_INCREMENT pour la table `station`
+-- AUTO_INCREMENT pour la table `date`
 --
-ALTER TABLE `station`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `date`
+  MODIFY `id_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
+-- AUTO_INCREMENT pour la table `directions`
+--
+ALTER TABLE `directions`
+  MODIFY `id_direction` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT pour la table `lieux`
+--
+ALTER TABLE `lieux`
+  MODIFY `id_lieu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `trajets`
 --
 ALTER TABLE `trajets`
-  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`
 --
 ALTER TABLE `utilisateurs`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
