@@ -1,32 +1,37 @@
-<form action="" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">
+<form action="./index.php?controleur=gererConnexion&action=enregistrement" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">
     <h2>Créer un compte</h2>
 
     <label for="txtnom">
         Nom<br/>
-        <input type="text" name="txtnom" id="" required>
+        <input type="text" name="txtnom" id="txtnom" required>
     </label>
 
     <label for="txtprenom">
         Prénom<br/>
-        <input type="text" name="txtprenom" id="" required>
+        <input type="text" name="txtprenom" id="txtprenom" required>
     </label>
 
     <label for="txtemail">
         Email<br/>
-        <input type="email" name="txtemail" id="" required>
+        <input type="email" name="txtemail" id="txtemail" required>
     </label>
 
     <label for="phone">
         Téléphone<br/>
-        <input type="tel" name="phone" id="" required>
+        <input type="tel" name="phone" id="phone" required>
     </label>
 
     <label for="txtmdp">
         Mot de passe<br/>
-        <input type="password" name="txtmdp" id="" required>
+        <input type="password" name="txtmdp" id="txtmdp" required>
+    </label>
+
+    <label for="residence">
+        Résidence administrative<br/>
+        <input type="text" name="residence" id="residence" required>
     </label>
 
     <input type="submit" name="formConn" value="Créer un compte">
 
-    <span>Vous avez déjà un compte ? <a href="login.php">Connectez-vous</a></span>
+    <span>Vous avez déjà un compte ? <a href="./index.php?controleur=gererConnexion&action=formIdentification">Connectez-vous</a></span>
 </form>

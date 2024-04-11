@@ -48,12 +48,24 @@ class UtilisateurDAO {
 
     public function creer(Utilisateur $objUtilisateur) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
-        $sql = "INSERT INTO lieux VALUES (:idArret, :ville, :lieu);";
+        $sql = "INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :password, NULL, :residence);";
+
+        $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $nom = $objUtilisateur->getNom();
+        $prenom = $objUtilisateur->getPrenom();
+        $email = $objUtilisateur->getEmail();
+        $phone = $objUtilisateur->getPhone();
+        $residence = $objUtilisateur->getResidenceAdministrative();
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':idArret', $objArret->getIdArret());
-        $stmt->bindParam(':ville', $objArret->getVille());
-        $stmt->bindParam(':lieu', $objArret->getLieu());
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':password', $hash);
+        $stmt->bindParam(':residence', $residence);
 
         $bool = ($stmt->execute());
         
@@ -97,6 +109,21 @@ class UtilisateurDAO {
         }
         
         return $tabReservation;
+    }
+
+    public function estInscrit($email, $phone) {
+        $stmt = $this->conn->prepare("SELECT * FROM utilisateurs WHERE email=:email OR phone=:phone");
+
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        $bool = ($tuple != null) ? true : false;
+
+        return $bool;
     }
 }
 ?>
