@@ -3,12 +3,23 @@
    
     <nav>
         <ul>
-            <?php if (!isset($_SESSION['Utilisateur'])) { ?>
+            <?php 
+                if (!isset($_SESSION['Utilisateur'])) {
+            ?>
             <li><a href="./index.php?controleur=gererConnexion&action=formIdentification" class="btn2">Connexion</a></li>
             <li><a href="./index.php?controleur=gererConnexion&action=formEnregistrement" class="btn">Créer un compte</a></li>
-            <?php } else { ?>
+            <?php 
+                } else {
+                    if ($_SESSION['Utilisateur']->getType() == 1) {
+            ?>
+            <li><a href="./index.php?controleur=admin&action=dashboard" class="btn2">Mode administrateur</a></li>
+            <?php
+                    }
+            ?>
             <li><a href="./index.php?controleur=gererConnexion&action=deconnexion" class="btn">Déconnexion</a></li>
-            <?php }?>
+            <?php
+                }
+            ?>
         </ul>
     </nav>
 </header>

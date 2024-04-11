@@ -67,6 +67,10 @@
                 case 'gererReservations':
                     include_once('./controleurs/c_gestionReservation.php');
                     break;
+
+                case 'admin':
+                    include_once('./controleurs/c_admin.php');
+                    break;
                 
                 default:
                     header('Location: ./index.php?controleur=accueil');

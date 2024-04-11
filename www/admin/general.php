@@ -5,7 +5,7 @@
 
     $conn = conn();
 
-    if (!isset($_SESSION['type'])) {
+    if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
         header('Location: ../index.php');
     }
 
