@@ -49,6 +49,28 @@ class TrajetDAO {
         return $objTrajet;
     }
 
+    public function getLesProchainsTrajets() {
+        $tabTrajets = array();
+
+        $stmt = $this->conn->prepare("SELECT trajets.* FROM trajets 
+                                INNER JOIN date ON date.id_date = trajets.id_date 
+                                INNER JOIN horaire ON horaire.id_horaire = trajets.id_horaire 
+                                INNER JOIN directions ON directions.id_direction = trajets.id_direction
+                                WHERE date.date >= NOW()
+                                ORDER BY date.date, horaire.id_horaire, directions.id_direction;");
+        $stmt->execute();
+        $tuple = $stmt->fetch();
+
+        while ($tuple != null) {
+            $objTrajet = new Trajet($tuple['id_trajet'], $tuple['id_date'], $tuple['id_horaire'], $tuple['id_direction']);
+            array_push($tabTrajets, $objTrajet);
+
+            $tuple = $stmt->fetch();
+        }
+        
+        return $tabTrajets;
+    }
+
     public function getNbReservations(Trajet $objTrajet) {
         
         $stmt = $this->conn->prepare("SELECT COUNT(*) as nbPersonnes FROM reserver WHERE id_trajet=:trajet");

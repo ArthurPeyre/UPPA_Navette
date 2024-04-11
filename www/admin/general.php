@@ -1,6 +1,26 @@
 <?php
     include_once('../conn.php');
 
+    include_once('../classes/class.gestionConnexion.php');
+
+    include_once('../classes/class.date.php');
+    include_once('../classes/class.dateDAO.php');
+
+    include_once('../classes/class.horaire.php');
+    include_once('../classes/class.horaireDAO.php');
+
+    include_once('../classes/class.lieu.php');
+    include_once('../classes/class.lieuDAO.php');
+
+    include_once('../classes/class.reservation.php');
+    include_once('../classes/class.reservationDAO.php');
+
+    include_once('../classes/class.trajet.php');
+    include_once('../classes/class.trajetDAO.php');
+
+    include_once('../classes/class.utilisateur.php');
+    include_once('../classes/class.utilisateurDAO.php');
+
     session_start();
 
     $conn = conn();
@@ -29,6 +49,10 @@
         'December' => 'Décembre'
     );
 
+    $objTrajetDAO = new TrajetDAO();
+    $objDateDAO = new DateDAO();
+    $objHoraireDAO = new HoraireDAO();
+
 
     // Nombre de VISITES
     $stmt = $conn->prepare("SELECT COUNT(*) as visites FROM utilisateurs WHERE derniereConnexion>=:date");
@@ -54,7 +78,7 @@
     $Reservations = $stmt->fetch();
 
 
-    // Nombre de RÉSERVATIONS
+    // Récurrence
     $stmt = $conn->prepare("SELECT AVG(reservations) AS recurrence
                             FROM (
                                 SELECT COUNT(*) as reservations
@@ -72,23 +96,7 @@
 
 
     // Liste des TRAJETS
-    $stmt = $conn->prepare("SELECT trajets.id_trajet, date.date, heureDepart, label, passagers 
-                            FROM trajets 
-                            INNER JOIN reserver ON trajets.id_trajet=reserver.id_trajet 
-                            INNER JOIN date ON date.id_date = trajets.id_date 
-                            INNER JOIN horaire ON horaire.id_horaire = trajets.id_horaire 
-                            INNER JOIN directions ON directions.id_direction = trajets.id_direction 
-                            INNER JOIN (
-                                SELECT id_trajet, COUNT(*) as passagers
-                                FROM reserver
-                                GROUP BY id_trajet
-                            ) AS subquery ON trajets.id_trajet = subquery.id_trajet
-                            WHERE date.date <= NOW()
-                            ORDER BY date.date, horaire.id_horaire;");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':date', $date);
-    $stmt->execute();
-    $lstTrajets = $stmt->fetch();
+    $lstTrajets = $objTrajetDAO->getLesProchainsTrajets();
 
 ?>
 <!DOCTYPE html>
@@ -372,24 +380,28 @@
                             <th style="text-align: right;">Nombre Passagers</th>
                         </tr>
                         <?php
-                            while ($lstTrajets != NULL) {
+                            foreach ($lstTrajets as $trajet) {
                                 // Date au format "yyyy-mm-dd"
-                                $date = $lstTrajets['date'];
+                                $objDate = $objDateDAO->charger($trajet->getIdDate());
+                                $date = $objDate->getDate();
 
                                 // Transformer la date en format "j F Y" (1 Avril 2024)
                                 $date_formattee = date("j ", strtotime($date)) . $mois[date('F', strtotime($date))] . date(" Y", strtotime($date));
+
+                                $objHoraire = $objHoraireDAO->charger($trajet->getIdHoraire());
+
+                                $direction = ($trajet->getIdDirection() == 1) ? "Anglet" : "Pau";
                         ?>
                         <tr>
-                            <td style="padding: 15px !important; width: 43px;"><input type="radio" name="idTrajet" id="idTrajet" value="<?= $lstTrajets['id_trajet'] ?>" required></td>
-                            <td style="text-align: right;"><?= $lstTrajets['id_trajet'] ?></td>
+                            <td style="padding: 15px !important; width: 43px;"><input type="radio" name="idTrajet" id="idTrajet" value="<?= $trajet->getIdTrajet() ?>" required></td>
+                            <td style="text-align: right;"><?= $trajet->getIdTrajet() ?></td>
                             <!-- <td style="text-align: left;">Maintenu</td> -->
                             <td style="text-align: left;"><?= $date_formattee ?></td>
-                            <td style="text-align: left;"><?= $lstTrajets['heureDepart'] ?></td>
-                            <td style="text-align: left;"><?= $lstTrajets['label'] ?></td>
-                            <td style="text-align: right;"><?= $lstTrajets['passagers'] ?></td>
+                            <td style="text-align: left;"><?= $objHoraire->getHeureDepart() ?></td>
+                            <td style="text-align: left;"><?= $direction ?></td>
+                            <td style="text-align: right;"><?= $objTrajetDAO->getNbReservations($trajet) ?></td>
                         </tr>
                         <?php
-                                $lstTrajets = $stmt->fetch();
                             }
                         ?>
                     </table>
@@ -401,7 +413,6 @@
                     </div>
                     <div class="right">
                         <input type="reset" value="Retour">
-                        <!-- <a href="">Annuler</a> -->
                         <input type="submit" value="Voir les réservations">
                     </div>
                 </div>
