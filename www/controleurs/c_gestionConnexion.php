@@ -31,12 +31,8 @@
 
             $objUtilisateurDAO = new UtilisateurDAO();
 
-            echo "1... ";
-
             // Si aucun compte n'est renvoyé
             if (!$objUtilisateurDAO->estInscrit($_POST['txtemail'], $_POST['phone'])) {
-
-                echo "2... ";
 
                 $objUtilisateur = new Utilisateur(0, $_POST['txtnom'], $_POST['txtprenom'], $_POST['txtemail'], $_POST['phone'], $_POST['txtmdp'], 0, $_POST['residence'], null);
 

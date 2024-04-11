@@ -29,6 +29,8 @@ class TrajetDAO {
     }
 
     public function getLeTrajet($idDate, $idHoraire, $idDirection) {
+        $objTrajet = null;
+
         $stmt = $this->conn->prepare("SELECT * FROM trajets WHERE id_date=:date AND id_horaire=:horaire AND id_direction=:direction");
 
         // Liage des valeurs
@@ -42,7 +44,7 @@ class TrajetDAO {
         // Récupération des résultats
         $tuple = $stmt->fetch();
 
-        $objTrajet = new Trajet($tuple['id_trajet'], $tuple['id_date'], $tuple['id_horaire'], $tuple['id_direction']);
+        if ($tuple != null) $objTrajet = new Trajet($tuple['id_trajet'], $tuple['id_date'], $tuple['id_horaire'], $tuple['id_direction']);
 
         return $objTrajet;
     }
@@ -64,18 +66,16 @@ class TrajetDAO {
 
     public function creer(Trajet $objTrajet) {
         // Enregistre dans la base l'objet passé en paramètre
-        $sql = "INSERT INTO trajets VALUES (:id, :id_date, :id_horaire, :id_direction);";
+        $sql = "INSERT INTO trajets VALUES (NULL, :id_date, :id_horaire, :id_direction);";
 
-        $stmt = $_db->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
-        $idTrajet = $objTrajet->getIdTrajet();
         $idDate = $objTrajet->getIdDate();
         $idHoraire = $objTrajet->getIdHoraire();
         $idDirection = $objTrajet->getIdDirection();
 
-        $stmt->bindParam(':id', $idTrajet);
         $stmt->bindParam(':id_date', $idDate);
-        $stmt->bindParam(':id_horaire', $idDHoraire);
+        $stmt->bindParam(':id_horaire', $idHoraire);
         $stmt->bindParam(':id_direction', $idDirection);
 
         $bool = ($stmt->execute());

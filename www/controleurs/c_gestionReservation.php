@@ -17,7 +17,7 @@
     
                         $objTrajet = new Trajet(null, $_POST['lstDate'], $_POST['lstHoraire'], $direction);
 
-                        echo "ok 2.a ";
+                        echo "trajet inexistant, ";
     
                         if ($objTrajetDAO->creer($objTrajet)) {
     
@@ -26,20 +26,20 @@
                             $objReservation = new Reservation($objTrajet->getIdTrajet(), $_SESSION['Utilisateur']->getIdUtilisateur(), $_POST['depart'], $_POST['arrivee']);
                             $objReservationDAO->creer($objReservation);
 
-                            echo "ok 3.a";
+                            echo "création réussi";
                         } else {
-                            echo "ok 3.b";
+                            echo "echec de la création";
                         }
                     } else {
-                        echo "ok 2.b ";
+                        echo "trajet existe, ";
                         if (!$objReservationDAO->estReservee($objTrajet, $_SESSION['Utilisateur'])) {
 
                             $objReservation = new Reservation($objTrajet->getIdTrajet(), $_SESSION['Utilisateur']->getIdUtilisateur(), $_POST['depart'], $_POST['arrivee']);
                             $objReservationDAO->creer($objReservation);
 
-                            echo "ok 3.c";
+                            echo "réservation réussi";
                         } else {
-                            echo "ok 3.d";
+                            echo "deja réservé";
                         }
                     }
                 }

@@ -64,8 +64,6 @@ class ReservationDAO {
         $stmt->bindParam(':id_lieuArrivee', $idArrivee);
 
         $bool = $stmt->execute();
-        echo ($bool) ? "lol " : "merde... ";
-
     }
 
     public function supprimer($idTrajet, Utilisateur $objUtilisateur) {

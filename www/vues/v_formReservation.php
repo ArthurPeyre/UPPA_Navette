@@ -49,10 +49,8 @@
         Date<br/>
         <select name="lstDate" id="" required>
             <?php foreach ($tabDates as $date) :
-                // Convertit la date en format timestamp
                 $timestamp = strtotime($date->getDate());
 
-                // Formate la date en "jj mois abrégé aaaa"
                 $date_formatee = date("d M Y", $timestamp);
             ?>
                 <option value="<?= $date->getIdDate() ?>">
