@@ -48,7 +48,7 @@ class UtilisateurDAO {
 
     public function creer(Utilisateur $objUtilisateur) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
-        $sql = "INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :password, NULL, :residence);";
+        $sql = "INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :password, 0, :residence, NOW());";
 
         $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
         $hash = password_hash($password, PASSWORD_DEFAULT);
