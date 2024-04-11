@@ -23,9 +23,32 @@ class DateDAO {
 
         $tuple = $stmt->fetch();
 
-        $objDate = new Trajet($tuple['id_date'], $tuple['date']);
+        $objDate = new Date($tuple['id_date'], $tuple['date']);
         
         return $objDate;
+    }
+
+    public function getLesProchainesDates() {
+        $tabDates = array();
+
+        $sql = "SELECT * FROM date WHERE date > :date ORDER BY date";
+
+        $tomorrow = date("Y-m-d", strtotime("+1 day"));
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':date', $tomorrow);
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        while ($tuple != null) {
+            $objDate = new Date($tuple['id_date'], $tuple['date']);
+            array_push($tabDates, $objDate);
+
+            $tuple = $stmt->fetch();
+        }
+        
+        return $tabDates;
     }
 
     public function creer(Date $objDate) {

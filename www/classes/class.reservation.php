@@ -21,7 +21,7 @@ class Reservation {
 
     // id_utilisateur
     public function getIdUtilisateur() {
-        return $this->id_utilisateurr;
+        return $this->id_utilisateur;
     }
 
     // id_lieuDepart

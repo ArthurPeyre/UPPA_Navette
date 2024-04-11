@@ -29,28 +29,50 @@ class ReservationDAO {
         return $objReservation;
     }
 
-    public function creer(Reservation $objReservation) {
-        // Enregistre dans la base l'objet passé en paramètre
-        $sql = "INSERT INTO reserver VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
+    public function estReservee($objTrajet, $objUtilisateur) {
+        $stmt = $this->conn->prepare("SELECT * FROM reserver WHERE id_trajet=:trajet AND id_utilisateur=:user");
 
-        $stmt = $_db->prepare($sql);
+        $idTrajet = $objTrajet->getIdTrajet();
+        $idUtilisateur = $objUtilisateur->getIdUtilisateur();
 
-        $stmt->bindParam(':id_trajet', $objReservation->getIdTrajet());
-        $stmt->bindParam(':id_utilisateur', $objReservation->getIdUtilisateur());
-        $stmt->bindParam(':id_lieuDepart', $objReservation->getIdLieuDepart());
-        $stmt->bindParam(':id_lieuArrivee', $objReservation->getIdLieuArrivee());
+        $stmt->bindParam(':trajet', $idTrajet);
+        $stmt->bindParam(':user', $idUtilisateur);
 
-        $bool = ($stmt->execute());
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        $bool = ($tuple != null) ? true : false;
 
         return $bool;
     }
 
-    public function supprimer(Reservation $objReservation) {
+    public function creer(Reservation $objReservation) {
+        // Enregistre dans la base l'objet passé en paramètre
+        $sql = "INSERT INTO reserver VALUES (:id_trajet, :id_utilisateur, :id_lieuDepart, :id_lieuArrivee);";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $idTrajet = $objReservation->getIdTrajet();
+        $idUtilisateur = $objReservation->getIdUtilisateur();
+        $idDepart = $objReservation->getIdLieuDepart();
+        $idArrivee = $objReservation->getIdLieuArrivee();
+
+        $stmt->bindParam(':id_trajet', $idTrajet);
+        $stmt->bindParam(':id_utilisateur', $idUtilisateur);
+        $stmt->bindParam(':id_lieuDepart', $idDepart);
+        $stmt->bindParam(':id_lieuArrivee', $idArrivee);
+
+        $bool = $stmt->execute();
+        echo ($bool) ? "lol " : "merde... ";
+
+    }
+
+    public function supprimer($idTrajet, Utilisateur $objUtilisateur) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
         $sql = "DELETE FROM reserver WHERE id_utilisateur=:idUser AND id_trajet=:idTrajet";
 
-        $idUser = $objReservation->getIdUtilisateur();
-        $idTrajet = $objReservation->getIdTrajet();
+        $idUser = $objUtilisateur->getIdUtilisateur();
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':idUser', $idUser);

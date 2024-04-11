@@ -26,6 +26,9 @@
 
     session_start();
 
+    // Définit le fuseau horaire à utiliser
+    date_default_timezone_set('Europe/Paris');
+
     if(!isset($_REQUEST['controleur']))
         $controleur = 'accueil';
     else {
@@ -52,13 +55,21 @@
         <?php
             switch ($controleur) {
                 case 'accueil':
-                    include_once('./composants/reserver.php');
-                    include_once('./composants/reservations.php');
-                    include_once('./composants/profil.php');
+                    include_once('./vues/v_formReservation.php');
+                    include_once('./vues/v_mesReservations.php');
+                    include_once('./vues/v_profil.php');
+                    break;
+                
+                case 'gererConnexion':
+                    include_once('./controleurs/c_gestionConnexion.php');
+                    break;
+
+                case 'gererReservations':
+                    include_once('./controleurs/c_gestionReservation.php');
                     break;
                 
                 default:
-                    # code...
+                    header('Location: ./index.php?controleur=accueil');
                     break;
             }
             

@@ -14,18 +14,22 @@ class UtilisateurDAO {
     }
 
     // Renvoie l'objet Utilisateur correspondant à l'identifiant et mot de passe passés en paramètre
-    public function charger($idArret) {
-        $sql = "SELECT * FROM lieux WHERE id_trajet=:idArret";
+    public function charger($email, $mdp) {
+        $sql = "SELECT * FROM utilisateurs WHERE email=:email";
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':idArret', $idArret);
+        $stmt->bindParam(':email', $email);
         $stmt->execute();
 
         $tuple = $stmt->fetch();
 
-        $objArret = new Reservation($tuple['id_lieu'], $tuple['ville'], $tuple['lieu']);
-        
-        return $objArret;
+        if ($tuple != null) {
+            if (password_verify($mdp, $tuple['password'])) {
+                $result = new Utilisateur($tuple['id_utilisateur'], $tuple['nom'], $tuple['prenom'], $tuple['email'], $tuple['phone'], $tuple['password'], $tuple['type'], $tuple['residence_administrative'], $tuple['derniereConnexion']);
+            }
+        }
+
+        return $result;
     }
 
     public function supprimer(Arret $objArret) {
@@ -68,6 +72,31 @@ class UtilisateurDAO {
         $bool = ($stmt->execute());
         
         return $bool;
+    }
+
+    public function getLesProchainesReservations(Utilisateur $objUtilisateur) {
+        $tabReservation = array();
+
+        $sql = "SELECT * FROM reserver INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet INNER JOIN date ON trajets.id_date = date.id_date WHERE id_utilisateur=:idUtilisateur AND date.date>=:date";
+
+        $idUtilisateur = $objUtilisateur->getIdUtilisateur();
+        $date = date("Y-m-d");
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':idUtilisateur', $idUtilisateur);
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        while ($tuple != null) {
+            $objReservation = new Reservation($tuple['id_trajet'], $tuple['id_utilisateur'], $tuple['id_lieuDepart'], $tuple['id_lieuArrivee']);
+            array_push($tabReservation, $objReservation);
+
+            $tuple = $stmt->fetch();
+        }
+        
+        return $tabReservation;
     }
 }
 ?>

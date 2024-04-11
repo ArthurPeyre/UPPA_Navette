@@ -7,10 +7,10 @@ class GestionConnexion {
         self::$conn = new PDO('mysql:host=localhost;dbname=uppa_navette', 'root', 'root');
     }
 
-    public static function getConnection() {
-        if (is_null(self::$instance)) self::$conn = new GestionConnexion();
+    public static function getConnexion() {
+        if (is_null(self::$instance)) self::$instance = new GestionConnexion();
 
-        return self::$conn;
+        return (self::$conn);
     }
 
     // Libérer la connexion à la base de données

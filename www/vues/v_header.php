@@ -3,11 +3,11 @@
    
     <nav>
         <ul>
-            <?php if (!isset($_SESSION['id_utilisateur'])) { ?>
-            <li><a href="login.php" class="btn2">Connexion</a></li>
-            <li><a href="register.php" class="btn">Créer un compte</a></li>
+            <?php if (!isset($_SESSION['Utilisateur'])) { ?>
+            <li><a href="./index.php?controleur=gererConnexion&action=formIdentification" class="btn2">Connexion</a></li>
+            <li><a href="./index.php?controleur=gererConnexion&action=formEnregistrement" class="btn">Créer un compte</a></li>
             <?php } else { ?>
-            <li><a href="logout.php" class="btn">Déconnexion</a></li>
+            <li><a href="./index.php?controleur=gererConnexion&action=deconnexion" class="btn">Déconnexion</a></li>
             <?php }?>
         </ul>
     </nav>

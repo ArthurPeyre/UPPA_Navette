@@ -1,24 +1,18 @@
-<form action="" method="post" id="formReserver">
+<form action="./index.php?controleur=gererReservations&action=reserver" method="post" id="formReserver">
     <h2>Réserver</h2>
 
     <?php
-    // Requête préparée pour la sélection
-    $stmt = $conn->prepare("SELECT * FROM lieux WHERE 1");
-
-    // Exécution de la requête
-    $stmt->execute();
-
-    // Récupération des résultats
-    $resultats = $stmt->fetchAll();
+    $objLieuxDAO = new LieuDAO();
+    $tabLieux = $objLieuxDAO->getTousLesLieux();
     ?>
 
     <label for="depart">
         Lieu de départ<br/>
         <select name="depart" id="depart" required>
-            <?php foreach ($resultats as $lieu) : ?>
-                <option value="<?= $lieu['id_lieu'] ?>">
-                    <span><?= $lieu['ville'] ?></span>
-                    <span><?= $lieu['lieu'] ?></span>
+            <?php foreach ($tabLieux as $lieu) : ?>
+                <option value="<?= $lieu->getIdLieu() ?>">
+                    <span><?= $lieu->getVille() ?></span>
+                    <span><?= $lieu->getLieu() ?></span>
                 </option>
             <?php endforeach; ?>
         </select>
@@ -27,54 +21,41 @@
     <label for="arrivee">
         Lieu d'arrivée<br/>
         <select name="arrivee" id="arrivee" required>
-            <?php foreach ($resultats as $lieu) :
-                if ($lieu['ville'] === "Anglet") {
+            <?php foreach ($tabLieux as $lieu) :
+                if ($lieu->getVille() === "Anglet") {
             ?>
-                <option value="<?= $lieu['id_lieu'] ?>" selected>
+                <option value="<?= $lieu->getIdLieu() ?>" selected>
             <?php
                 } else {
             ?>
-                <option value="<?= $lieu['id_lieu'] ?>">
+                <option value="<?= $lieu->getIdLieu() ?>">
             <?php
                 }
             ?>
-                    <span><?= $lieu['ville'] ?></span>
-                    <span><?= $lieu['lieu'] ?></span>
+                    <span><?= $lieu->getVille() ?></span>
+                    <span><?= $lieu->getLieu() ?></span>
                 </option>
             <?php endforeach; ?>
         </select>
     </label>
 
     <?php
-    // Définit le fuseau horaire à utiliser
-    date_default_timezone_set('Europe/Paris');
+    $objDateDAO = new DateDAO();
+    $tabDates = $objDateDAO->getLesProchainesDates();
 
-    // Requête préparée pour la sélection
-    $stmt = $conn->prepare("SELECT * FROM date WHERE date >= :date ORDER BY date");
-
-    // Récupère la date du jour dans le format "aaaa-mm-jj"
-    $date_du_jour = date("Y-m-d");
-
-    $stmt->bindParam(':date', $date_du_jour);
-
-    // Exécution de la requête
-    $stmt->execute();
-
-    // Récupération des résultats
-    $resultats = $stmt->fetchAll();
     ?>
 
     <label for="">
         Date<br/>
         <select name="lstDate" id="" required>
-            <?php foreach ($resultats as $date) :
+            <?php foreach ($tabDates as $date) :
                 // Convertit la date en format timestamp
-                $timestamp = strtotime($date['date']);
+                $timestamp = strtotime($date->getDate());
 
                 // Formate la date en "jj mois abrégé aaaa"
                 $date_formatee = date("d M Y", $timestamp);
             ?>
-                <option value="<?= $date['id_date'] ?>">
+                <option value="<?= $date->getIdDate() ?>">
                     <span><?= $date_formatee ?></span>
                 </option>
             <?php endforeach; ?>
@@ -82,28 +63,20 @@
     </label>
 
     <?php
-    // Requête préparée pour la sélection
-    $stmt = $conn->prepare("SELECT * FROM horaire WHERE 1");
-
-    // Exécution de la requête
-    $stmt->execute();
-
-    // Récupération des résultats
-    $resultats = $stmt->fetchAll();
+    $objHoraireDAO = new HoraireDAO();
+    $tabHoraires = $objHoraireDAO->getLesHorairesDepart();
     ?>
 
 <label for="">
     Heure de départ<br/>
     <select name="lstHoraire" id="" required>
-        <?php foreach ($resultats as $horaire) : ?>
-            <option value="<?= $horaire['id_horaire'] ?>">
-                <span><?= $horaire['heureDepart'] ?></sid_lieupan>
+        <?php foreach ($tabHoraires as $horaire) : ?>
+            <option value="<?= $horaire->getIdHoraire() ?>">
+                <span><?= $horaire->getHeureDepart() ?></sid_lieupan>
             </option>
             <?php endforeach; ?>
         </select>
     </label>
-    
-    <p class="error"><?= $err; ?></p>
     
     <input type="submit" name="formReserver" value="Réserver">
     <div>  Rappel : les horaires sont mentionnées pour un départ depuis Pau ou d'Anglet</div>

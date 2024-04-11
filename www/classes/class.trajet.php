@@ -1,22 +1,21 @@
 <?php
 class Trajet {
     // Variables
-    private $id;
+    private $id_trajet;
     private $id_date;
     private $id_horaire;
     private $id_direction;
 
     // Méthodes et fonctions
-    public function __construct($id, $id_date, $id_horaire, $id_direction, $nbPassagers) {
-        $this->id = $id;
+    public function __construct($id, $id_date, $id_horaire, $id_direction) {
+        $this->id_trajet = $id;
         $this->id_date = $id_date;
         $this->id_horaire = $id_horaire;
         $this->id_direction = $id_direction;
-        $this->nbPassagers = $nbPassagers;
     }
 
     public function getIdTrajet() {
-        return $this->id;
+        return $this->id_trajet;
     }
 
     public function getIdDate() {
@@ -24,7 +23,7 @@ class Trajet {
     }
 
     public function getIdHoraire() {
-        return $this->horaire;
+        return $this->id_horaire;
     }
 
     public function getIdDirection() {

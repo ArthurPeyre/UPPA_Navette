@@ -28,6 +28,26 @@ class LieuDAO {
         return $objLieu;
     }
 
+    public function getTousLesLieux() {
+        $tabLieux = array();
+
+        $sql = "SELECT * FROM lieux WHERE 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        while ($tuple != null) {
+            $objLieu = new Lieu($tuple['id_lieu'], $tuple['ville'], $tuple['lieu']);
+            array_push($tabLieux, $objLieu);
+
+            $tuple = $stmt->fetch();
+        }
+        
+        return $tabLieux;
+    }
+
     public function supprimer(Lieu $objLieu) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
         $sql = "DELETE FROM lieux WHERE id_lieu=:idLieu AND ville=:ville AND lieu=:lieu";

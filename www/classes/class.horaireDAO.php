@@ -23,9 +23,29 @@ class HoraireDAO {
 
         $tuple = $stmt->fetch();
 
-        $objLieu = new Horraire($tuple['id_horaire'], $tuple['heureDepart'], $tuple['heureArrivee']);
+        $objHoraire = new Horaire($tuple['id_horaire'], $tuple['heureDepart'], $tuple['heureArrivee']);
         
-        return $objLieu;
+        return $objHoraire;
+    }
+
+    public function getLesHorairesDepart() {
+        $tabHoraires = array();
+
+        $sql = "SELECT * FROM horaire WHERE 1";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        $tuple = $stmt->fetch();
+
+        while ($tuple != null) {
+            $objHoraire = new Horaire($tuple['id_horaire'], $tuple['heureDepart'], $tuple['heureArrivee']);
+            array_push($tabHoraires, $objHoraire);
+
+            $tuple = $stmt->fetch();
+        }
+        
+        return $tabHoraires;
     }
 
     public function supprimer(Horaire $objHoraire) {
