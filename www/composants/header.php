@@ -8,6 +8,7 @@
             <li><a href="register.php" class="btn">Créer un compte</a></li>
             <?php } else { ?>
             <li><a href="logout.php" class="btn">Déconnexion</a></li>
+            <li><ah href="profil.php" class="btn">Mon Compte</a></l>
             <?php }?>
         </ul>
     </nav>

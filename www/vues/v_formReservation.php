@@ -41,6 +41,7 @@
 
     <?php
     $objDateDAO = new DateDAO();
+  
     $tabDates = $objDateDAO->getLesProchainesDates();
 
     ?>

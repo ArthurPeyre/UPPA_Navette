@@ -1,4 +1,4 @@
-<form action="./index.php?controleur=gererConnexion&action=identification" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">
+<form action="./index.php?controleur=gererConnexion&action=identification" method="post" id="formProfil">
     <h2>Se connecter</h2>
 
     <label for="txtemail">

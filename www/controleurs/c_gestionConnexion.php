@@ -1,4 +1,5 @@
 <?php
+
     $action = $_REQUEST['action'];
 
     switch ($action) {
@@ -50,6 +51,11 @@
                 echo "Cette adresse mail et/ou ce numéro de téléphone sont déjà utilisés...";
                 header('Location: ./index.php?controleur=gererConnexion&action=formEnregistrement');
             }
+            break;
+            
+        case 'profil':
+            include_once('vues/v_profil.php');
+
             break;
 
         case 'deconnexion':

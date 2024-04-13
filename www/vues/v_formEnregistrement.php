@@ -1,4 +1,4 @@
-<form action="./index.php?controleur=gererConnexion&action=enregistrement" method="post" style="padding-top: calc(83.2px + 15px); margin: 0 auto;">
+<form action="./index.php?controleur=gererConnexion&action=enregistrement" method="post" id="formProfil">
     <h2>Créer un compte</h2>
 
     <label for="txtnom">

@@ -33,31 +33,36 @@ class DateDAO {
 
         $sql = "SELECT * FROM date WHERE date > :date ORDER BY date";
 
+      
+
         $tomorrow = date("Y-m-d", strtotime("+1 day"));
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':date', $tomorrow);
+        
         $stmt->execute();
 
         $tuple = $stmt->fetch();
 
         while ($tuple != null) {
             $objDate = new Date($tuple['id_date'], $tuple['date']);
+            
             array_push($tabDates, $objDate);
 
             $tuple = $stmt->fetch();
         }
         
         return $tabDates;
+        
     }
 
     public function creer(Date $objDate) {
         // Enregistre dans la base l'objet passé en paramètre
-        $sql = "INSERT INTO date VALUES (:id, :date);";
+        $sql = "INSERT INTO date VALUES (NULL, :date);";
 
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindParam(':id', $objDate->getIdDate());
+        
         $stmt->bindParam(':date', $objDate->getDate());
 
         $bool = ($stmt->execute());
@@ -65,14 +70,14 @@ class DateDAO {
         return $bool;
     }
 
-    public function supprimer(Date $objDate) {
+    public function supprimer($id) {
         // Enregistre dans la base l'objet passé en paramètre
-        $sql = "DELETE date WHERE id_date=:id AND date=:date;";
+        $sql = "DELETE FROM date WHERE id_date=:id ";
 
         $stmt = $conn->prepare($sql);
 
-        $stmt->bindParam(':id', $objDate->getIdDate());
-        $stmt->bindParam(':date', $objDate->getDate());
+        $stmt->bindParam(':id', $id);
+        
 
         $bool = ($stmt->execute());
 

@@ -37,7 +37,8 @@
     </label>
 
     <input type="submit" name="formProfil" value="Enregistrer">
-    <input type="reset" value="Annuler">
+    
+    <a href="./index.php?controleur=gererConnexion&action=deconnexion" class="deconnexion">Déconnexion</a>
     <?php
     }
     ?>

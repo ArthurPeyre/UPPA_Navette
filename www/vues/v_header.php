@@ -16,7 +16,8 @@
             <?php
                     }
             ?>
-            <li><a href="./index.php?controleur=gererConnexion&action=deconnexion" class="btn">Déconnexion</a></li>
+            <a href="./index.php" class="btn">Accueil</a></li>
+            <a href="./index.php?controleur=gererConnexion&action=profil" class="btn">Profil</a></li>
             <?php
                 }
             ?>

@@ -1,110 +1,10 @@
-<?php
-    include_once('../conn.php');
 
-    include_once('../classes/class.gestionConnexion.php');
-
-    include_once('../classes/class.date.php');
-    include_once('../classes/class.dateDAO.php');
-
-    include_once('../classes/class.horaire.php');
-    include_once('../classes/class.horaireDAO.php');
-
-    include_once('../classes/class.lieu.php');
-    include_once('../classes/class.lieuDAO.php');
-
-    include_once('../classes/class.reservation.php');
-    include_once('../classes/class.reservationDAO.php');
-
-    include_once('../classes/class.trajet.php');
-    include_once('../classes/class.trajetDAO.php');
-
-    include_once('../classes/class.utilisateur.php');
-    include_once('../classes/class.utilisateurDAO.php');
-
-    session_start();
-
-    $conn = conn();
-
-    if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
-        header('Location: ../index.php');
-    }
-
-    // Définir le fuseau horaire
-    date_default_timezone_set('Europe/Paris');
-    setlocale(LC_TIME, 'fr_FR.utf8','fra');
-
-    // Traduction des mois en français
-    $mois = array(
-        'January' => 'Janvier',
-        'February' => 'Février',
-        'March' => 'Mars',
-        'April' => 'Avril',
-        'May' => 'Mai',
-        'June' => 'Juin',
-        'July' => 'Juillet',
-        'August' => 'Août',
-        'September' => 'Septembre',
-        'October' => 'Octobre',
-        'November' => 'Novembre',
-        'December' => 'Décembre'
-    );
-
-    $objTrajetDAO = new TrajetDAO();
-    $objDateDAO = new DateDAO();
-    $objHoraireDAO = new HoraireDAO();
-
-
-    // Nombre de VISITES
-    $stmt = $conn->prepare("SELECT COUNT(*) as visites FROM utilisateurs WHERE derniereConnexion>=:date");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':date', $date);
-    $stmt->execute();
-    $Visites = $stmt->fetch();
-
-
-    // Nombre d'UTILISATEURS
-    $stmt = $conn->prepare("SELECT COUNT(DISTINCT reserver.id_utilisateur) AS users FROM reserver INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet INNER JOIN date ON trajets.id_date = date.id_date WHERE date.id_date >= :date");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':date', $date);
-    $stmt->execute();
-    $Utilisateurs = $stmt->fetch();
-
-
-    // Nombre de RÉSERVATIONS
-    $stmt = $conn->prepare("SELECT COUNT(*) as reservations FROM reserver INNER JOIN trajets ON trajets.id_trajet=reserver.id_trajet INNER JOIN date ON date.id_date = trajets.id_date WHERE date.date>=:date");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':date', $date);
-    $stmt->execute();
-    $Reservations = $stmt->fetch();
-
-
-    // Récurrence
-    $stmt = $conn->prepare("SELECT AVG(reservations) AS recurrence
-                            FROM (
-                                SELECT COUNT(*) as reservations
-                                FROM reserver 
-                                INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet 
-                                INNER JOIN date ON trajets.id_date = date.id_date 
-                                WHERE date.id_date >= :date
-                                GROUP BY reserver.id_utilisateur
-                            ) AS sous_requete;");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':date', $date);
-    $stmt->execute();
-    $tmp = $stmt->fetch();
-    $Recurrence = number_format($tmp['recurrence'], 2);
-
-
-    // Liste des TRAJETS
-    $lstTrajets = $objTrajetDAO->getLesProchainsTrajets();
-
-?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./../stat.css">
+    <link rel="stylesheet" href="./stat.css">
     <title>NavConnect</title>
 
     
@@ -115,8 +15,9 @@
         <section id="dashboard">
             <h1>Tableau de bord</h1>
             <ul style="display: flex; gap: 15px;">
-                <li><a href="./general.php" style="color: #0054FF;">Général</a></li>
-                <li><a href="">Opérations</a></li>
+                <li><a href="./index.php?controleur=admin&action=dashboard" >Général</a></li>
+                <li><a href="./index.php?controleur=admin&action=formajouter">Ajouter date</a></li>
+                <li><a href="./index.php?controleur=admin&action=formsupprimer">Supprimer date</a></li>
             </ul>
         </section>
 
@@ -171,7 +72,7 @@
         </section>
 
         <section style="padding-top:0;">
-            <form class="list__container" action="./reservations.php" method="post">
+            <form class="list__container" action="./admin/reservations.php" method="post">
                 <h2>Trajets</h2>
 
                 <div>
@@ -218,7 +119,7 @@
                         <span>trajet sélectionné</span>
                     </div>
                     <div class="right">
-                        <input type="reset" value="Retour">
+                        
                         <input type="submit" value="Voir les réservations">
                     </div>
                 </div>

@@ -1,0 +1,147 @@
+/* Base styles */
+  #app {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto; /* Align to the center horizontally and remove top margin */
+  }
+  
+  /* Dashboard styles */
+  #dashboard {
+    width: 100%;
+    text-align:left;
+  }
+  
+  #dashboard h1 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  
+  #dashboard ul {
+   
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    text-align:left;
+    gap: 5px;
+    margin-bottom: 10px;
+  }
+  
+  #dashboard ul li a {
+    color: #0054FF;
+    
+    text-decoration: none;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 0.8em;
+  }
+  
+  /* Stats section */
+  .stats__container {
+    display: flex; /* Change to flex for better control */
+    justify-content: space-around; /* Space the items evenly */
+    flex-wrap: wrap; /* Wrap items to new line on small screens */
+    width: 100%;
+    margin-bottom: 5px;
+  }
+  
+  .stats__view {
+    background: white;
+    padding: 10px 5px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc(25% - 10px); /* Four items per line, minus margin */
+    margin: 5px; /* Add some space between the cards */
+  }
+  
+  .stats__view .svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3px;
+  }
+  
+  .stat {
+    font-size: 1em;
+    font-weight: bold;
+  }
+  
+  /* Table styles */
+  .list__container {
+    width: 100%;
+    margin-left: 0; /* Align table to the left */
+  }
+  
+  .list__container table {
+    width: 250%; /* Set table width to be responsive */
+    margin-top: 5px;
+    border-collapse: collapse;
+  }
+  
+  .list__container th, .list__container td {
+    padding: 4px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* Popup styles */
+  .popup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .popup .left span {
+    font-size: 0.8em;
+  }
+  
+  .popup .right input[type="reset"],
+  .popup .right input[type="submit"] {
+    padding: 4px 6px; /* Make buttons smaller */
+    border: none;
+    background-color: #0054FF;
+    color: white;
+    border-radius: 4px;
+    font-size: 0.7em; /* Make font size smaller */
+    cursor: pointer;
+    margin: 2px; /* Add space between buttons */
+  }
+  
+  .popup .right input[type="reset"]:hover,
+  .popup .right input[type="submit"]:hover {
+    background-color: #0046cc;
+  }
+  
+  /* Make sure the header is visible */
+  header {
+    width: 100%;
+    padding: 5px 0; /* Adjust to your header's padding needs */
+
+    position: fixed; /* Fix the header at the top */
+    top: 0; /* Position at the very top of the page */
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  /* Adjustments for spacing */
+  body {
+    padding-top: 50px; /* Add padding to account for fixed header */
+  }
+  
+  /* Ensure the cards and table do not overlap */
+  @media (max-width: 768px) {
+    .stats__view {
+      flex-basis: calc(50% - 10px); /* Two items per line on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .stats__view {
+      flex-basis: 100%; /* One item per line on the smallest screens */
+    }
+  }
+  

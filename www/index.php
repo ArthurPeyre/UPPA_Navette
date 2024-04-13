@@ -57,7 +57,7 @@
                 case 'accueil':
                     include_once('./vues/v_formReservation.php');
                     include_once('./vues/v_mesReservations.php');
-                    include_once('./vues/v_profil.php');
+                   
                     break;
                 
                 case 'gererConnexion':
