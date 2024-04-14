@@ -45,6 +45,7 @@ switch ($action) {
         // Liste des TRAJETS
         $lstTrajets = $objTrajetDAO->getLesProchainsTrajets();
         include_once('./vues/v_statAdmin.php');
+        include_once('./vues/v_trajetAdmin.php');
         break;
 
     case 'formAjouterDate':

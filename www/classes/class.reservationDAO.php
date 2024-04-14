@@ -87,7 +87,7 @@ class ReservationDAO {
         $stmt->bindParam(':date', $date);
         $stmt->execute();
         $result = $stmt->fetch();
-        return $result['users']; 
+        return $result; 
 }
 
     public function getNbReservations() {
@@ -114,7 +114,7 @@ class ReservationDAO {
         $stmt->bindParam(':date', $date);
         $stmt->execute();
         $result = $stmt->fetch();
-        return $result['recurrence'] ? number_format($result['recurrence'], 2) : 0;  
+        return $result ? number_format($result, 2) : 0;  
 }
 }
 ?> 
