@@ -125,5 +125,14 @@ class UtilisateurDAO {
 
         return $bool;
     }
+    public function getNbVisites(){
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as visites FROM utilisateurs WHERE derniereConnexion>=:date");
+        
+        $date = date('Y-m-01');
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        $Visites = $stmt->fetch();
+        return $Visites;
+    }
 }
 ?>

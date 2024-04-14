@@ -80,6 +80,41 @@ class ReservationDAO {
         
         return $bool;
     }
+    public function getNbUtilisateurs(){
+        //Renvoie le nombre d'utilisateurs
+        $stmt = $this->conn->prepare("SELECT COUNT(DISTINCT reserver.id_utilisateur) AS users FROM reserver INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet INNER JOIN date ON trajets.id_date = date.id_date WHERE date.id_date >= :date");
+        $date = date('Y-m-01');
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['users']; 
+}
 
+    public function getNbReservations() {
+        //Renvoie le nombre de réservation
+        $stmt = $this->conn->prepare("SELECT COUNT(*) as reservations FROM reserver INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet INNER JOIN date ON date.id_date = trajets.id_date WHERE date.date >= :date");
+        $date = date('Y-m-01');
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['reservations'];  
+}
+    public function getRecurrence() {
+        //Renvoie la recurrence des utilisateurs
+        $sql = "SELECT AVG(reservations) AS recurrence FROM (
+        SELECT COUNT(*) as reservations
+        FROM reserver
+        INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet
+        INNER JOIN date ON trajets.id_date = date.id_date
+        WHERE date.id_date >= :date
+        GROUP BY reserver.id_utilisateur
+        ) AS sous_requete";
+        $date = date('Y-m-01'); 
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':date', $date);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['recurrence'] ? number_format($result['recurrence'], 2) : 0;  
+}
 }
 ?> 

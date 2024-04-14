@@ -1,10 +1,10 @@
-<form action="./index.php?controleur=admin&action=supprimer" method="post" id="formSupprimer">
+<form action="./index.php?controleur=admin&action=suppressionDate" method="post" id="formSupprimer">
 <section id="dashboard">
             
             <ul style="display: flex; gap: 15px;">
                 <li><a href="./index.php?controleur=admin&action=dashboard" >Général</a></li>
-                <li><a href="./index.php?controleur=admin&action=formajouter">Ajouter date</a></li>
-                <li><a href="./index.php?controleur=admin&action=formsupprimer">Supprimer date</a></li>
+                <li><a href="./index.php?controleur=admin&action=formAjouterDate">Ajouter date</a></li>
+                <li><a href="./index.php?controleur=admin&action=formSupprimerDate">Supprimer date</a></li>
             </ul>
         </section>
     <h2>Supprimer Date</h2>

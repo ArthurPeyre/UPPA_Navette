@@ -45,8 +45,8 @@ class DateDAO {
         $tuple = $stmt->fetch();
 
         while ($tuple != null) {
-            $objDate = new Date($tuple['id_date'], $tuple['date']);
-            
+            $objDate = new Date($tuple['date']);
+            $objDate->setIdDate($tuple['id_date']);
             array_push($tabDates, $objDate);
 
             $tuple = $stmt->fetch();
@@ -60,7 +60,7 @@ class DateDAO {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO date VALUES (NULL, :date);";
 
-        $stmt = $conn->prepare($sql);
+        $stmt = $this->conn->prepare($sql);
 
         
         $stmt->bindParam(':date', $objDate->getDate());
@@ -73,8 +73,8 @@ class DateDAO {
     public function supprimer($id) {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "DELETE FROM date WHERE id_date=:id ";
-
-        $stmt = $conn->prepare($sql);
+        
+        $stmt = $this->conn->prepare($sql);
 
         $stmt->bindParam(':id', $id);
         
