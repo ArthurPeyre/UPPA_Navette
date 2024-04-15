@@ -97,24 +97,25 @@ class ReservationDAO {
         $stmt->bindParam(':date', $date);
         $stmt->execute();
         $result = $stmt->fetch();
-        return $result['reservations'];  
+        return $result;  
 }
-    public function getRecurrence() {
-        //Renvoie la recurrence des utilisateurs
-        $sql = "SELECT AVG(reservations) AS recurrence FROM (
+public function getRecurrence() {
+    // Renvoie la récurrence des utilisateurs
+    $sql = "SELECT AVG(reservations) AS recurrence FROM (
         SELECT COUNT(*) as reservations
         FROM reserver
         INNER JOIN trajets ON reserver.id_trajet = trajets.id_trajet
         INNER JOIN date ON trajets.id_date = date.id_date
         WHERE date.id_date >= :date
         GROUP BY reserver.id_utilisateur
-        ) AS sous_requete";
-        $date = date('Y-m-01'); 
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':date', $date);
-        $stmt->execute();
-        $result = $stmt->fetch();
-        return $result ? number_format($result, 2) : 0;  
+    ) AS sous_requete";
+    $date = date('Y-m-01'); 
+    $stmt = $this->conn->prepare($sql);
+    $stmt->bindParam(':date', $date);
+    $stmt->execute();
+    $result = $stmt->fetch(); 
+    return $result ? number_format($result['recurrence'], 2) : 0;  
 }
+
 }
 ?> 
