@@ -27,7 +27,12 @@
                                 $objHoraire = $objHoraireDAO->charger($trajet->getIdHoraire());
 
                                 $direction = ($trajet->getIdDirection() == 1) ? "Anglet" : "Pau";
-                        ?>
+                                $nbPassagers = $objTrajetDAO->getNbReservations($trajet);
+
+        // Affichage uniquement des trajets avec des réservations
+        if ($nbPassagers > 0) {
+            ?>
+                    
                         <tr>
                             <td style="padding: 15px !important; width: 43px;"><input type="radio" name="idTrajet" id="idTrajet" value="<?= $trajet->getIdTrajet() ?>" required></td>
                             <td style="text-align: right;"><?= $trajet->getIdTrajet() ?></td>
@@ -37,8 +42,10 @@
                             <td style="text-align: left;"><?= $direction ?></td>
                             <td style="text-align: right;"><?= $objTrajetDAO->getNbReservations($trajet) ?></td>
                         </tr>
+                            
                         <?php
                             }
+                        }
                         ?>
                     </table>
                 </div>
