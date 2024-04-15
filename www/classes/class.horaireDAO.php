@@ -53,7 +53,7 @@ class HoraireDAO {
         $sql = "DELETE FROM horaire WHERE id_horaire=:idHoraire AND heureDepart=:heureD AND heureArrivee=:heureA";
 
         $idHoraire = $objHoraire->getIdHoraire();
-        $heureD = $objHoraire->getHeurreDepart();
+        $heureD = $objHoraire->getHeureDepart();
         $heureA = $objHoraire->getHeureArrivee();
 
         $stmt = $this->conn->prepare($sql);
@@ -71,7 +71,7 @@ class HoraireDAO {
         $sql = "INSERT INTO horaire VALUES (:idHoraire, :heureD, :heureA);";
 
         $idHoraire = $objHoraire->getIdHoraire();
-        $heureD = $objHoraire->getHeurreDepart();
+        $heureD = $objHoraire->getHeureDepart();
         $heureA = $objHoraire->getHeureArrivee();
 
         $stmt = $this->conn->prepare($sql);
@@ -89,7 +89,7 @@ class HoraireDAO {
         $sql = "UPDATE horaire SET heureDepart=:heureD, heureArrivee=:heureA WHERE id_horaire=:idHoraire;";
 
         $idHoraire = $objHoraire->getIdHoraire();
-        $heureD = $objHoraire->getHeurreDepart();
+        $heureD = $objHoraire->getHeureDepart();
         $heureA = $objHoraire->getHeureArrivee();
 
         $stmt = $this->conn->prepare($sql);
