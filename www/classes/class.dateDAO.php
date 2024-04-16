@@ -45,8 +45,8 @@ class DateDAO {
         $tuple = $stmt->fetch();
 
         while ($tuple != null) {
-            $objDate = new Date($tuple['date']);
-            $objDate->setIdDate($tuple['id_date']);
+            $objDate = new Date($tuple['id_date'],$tuple['date']);
+            
             array_push($tabDates, $objDate);
 
             $tuple = $stmt->fetch();

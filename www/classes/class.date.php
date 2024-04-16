@@ -1,12 +1,12 @@
 <?php
 class Date {
     // Variables
-    private $id_date = NULL;
+    private $id_date;
     private $date;
 
     // Méthodes et fonctions
-    public function __construct($laDate) {
-        
+    public function __construct($idDate,$laDate) {
+        $this->id_date=$idDate;
         $this->date = $laDate;
     }
 
@@ -14,10 +14,6 @@ class Date {
         return $this->id_date;
     }
     
-    public function setIdDate($idDate) {
-        $this->id_date = $idDate;
-    }
-
     public function getDate() {
         return $this->date;
     }
