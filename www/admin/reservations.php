@@ -42,6 +42,7 @@
     $stmt->bindParam(':trajet', $_POST['idTrajet']);
     $stmt->execute();
     $lstUsers = $stmt->fetch();
+    $_SESSION['idTrajet']=$_POST['idTrajet'];
 
 ?>
 <!DOCTYPE html>
@@ -176,7 +177,7 @@
 
         <section id="list" style="padding-top:0;">
             <div class="list__container">
-                <form method="post" action="" style="display: flex; align-items; center; justify-content: space-between;">
+                <form method="post" action="./excelcreation.php" style="display: flex; align-items; center; justify-content: space-between;">
                     <h2>Réservations</h2>
                     <input type="submit"class="btn" value="Télécharger le fichier Excel">
                 </form>

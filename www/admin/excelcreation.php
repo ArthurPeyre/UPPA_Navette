@@ -1,10 +1,7 @@
 <?php
 include_once('../conn.php');
-
 session_start();
-
 $conn = conn();
-
 if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
     header('Location: ../index.php');
 }
@@ -39,29 +36,29 @@ $stmt = $conn->prepare("SELECT utilisateurs.nom, utilisateurs.prenom, utilisateu
                         WHERE reserver.id_trajet = :trajet
                         ORDER BY reserver.id_lieuDepart, reserver.id_lieuArrivee");
 $date = date('Y-m-01');
-$stmt->bindParam(':trajet', $_POST['idTrajet']);
+$stmt->bindParam(':trajet', $_SESSION['idTrajet']);
 $stmt->execute();
 $lstUsers = $stmt->fetch();
 
-        header("Content-type: application/force-download");
-        header("Content-Disposition: attachment; filename=test.xls");
-        echo '<table>'.chr(13);
-        echo '    <tr>'.chr(13);
-        echo '        <td>Nom Prénom</td>'.chr(13);
-        echo '        <td>Email</td>'.chr(13);
-        echo '        <td>Téléphone</td>'.chr(13);
-        echo '        <td>Lieu Départ</td>'.chr(13);
-        echo '        <td>Lieu Arrivée</td>'.chr(13);
-        echo '    </tr>'.chr(13);
-        while ($lstUsers != NULL) {
-        echo '    <tr>'.chr(13);
-        echo '        <td>'.$lstUsers['nom'].' '.$lstUsers['prenom'].'</td>'.chr(13);
-        echo '        <td>'.$lstUsers['email'].'</td>'.chr(13);
-        echo '        <td>'.$lstUsers['phone'].'</td>'.chr(13);
-        echo '        <td>'.$lstUsers['lieuDepart'].'</td>'.chr(13);
-        echo '        <td>'.$lstUsers['lieuArrivee'].'</td>'.chr(13);
-        echo '    </tr>'.chr(13);
-        $lstUsers = $stmt->fetch();
-        }
-        echo '</table>'.chr(13);
+header("Content-type: application/force-download");
+header("Content-Disposition: attachment; filename=infoTrajet".$_SESSION['idTrajet'].".xls");
+echo '<table>'.chr(13);
+echo '    <tr>'.chr(13);
+echo '        <td>Nom Prénom</td>'.chr(13);
+echo '        <td>Email</td>'.chr(13);
+echo '        <td>Téléphone</td>'.chr(13);
+echo '        <td>Lieu Départ</td>'.chr(13);
+echo '        <td>Lieu Arrivée</td>'.chr(13);
+echo '    </tr>'.chr(13);
+while ($lstUsers != NULL) {
+    echo '    <tr>'.chr(13);
+    echo '        <td>'.$lstUsers['nom'].' '.$lstUsers['prenom'].'</td>'.chr(13);
+    echo '        <td>'.$lstUsers['email'].'</td>'.chr(13);
+    echo '        <td>'.$lstUsers['phone'].'</td>'.chr(13);
+    echo '        <td>'.$lstUsers['lieuDepart'].'</td>'.chr(13);
+    echo '        <td>'.$lstUsers['lieuArrivee'].'</td>'.chr(13);
+    echo '    </tr>'.chr(13);
+    $lstUsers = $stmt->fetch();
+}
+echo '</table>'.chr(13);
 ?>
