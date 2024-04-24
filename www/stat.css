@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     max-width: 1200px;
-    margin: 0 auto; /* Align to the center horizontally and remove top margin */
+    margin: 0 auto; 
   }
   
   /* Dashboard styles */
@@ -40,9 +40,9 @@
   
   /* Stats section */
   .stats__container {
-    display: flex; /* Change to flex for better control */
-    justify-content: space-around; /* Space the items evenly */
-    flex-wrap: wrap; /* Wrap items to new line on small screens */
+    display: flex; 
+    justify-content: space-around; 
+    flex-wrap: wrap;
     width: 100%;
     margin-bottom: 5px;
   }
@@ -55,8 +55,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    flex-basis: calc(25% - 10px); /* Four items per line, minus margin */
-    margin: 5px; /* Add some space between the cards */
+    flex-basis: calc(25% - 10px); 
+    margin: 5px; 
   }
   
   .stats__view .svg {
@@ -74,11 +74,11 @@
   /* Table styles */
   .list__container {
     width: 100%;
-    margin-left: 0; /* Align table to the left */
+    margin-left: 0; 
   }
   
   .list__container table {
-    width: 250%; /* Set table width to be responsive */
+    width: 250%; 
     margin-top: 5px;
     border-collapse: collapse;
   }

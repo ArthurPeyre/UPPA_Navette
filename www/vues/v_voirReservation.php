@@ -12,7 +12,7 @@
 <div id="app">
         <section id="dashboard">
             <h1>Tableau de bord</h1>
-            <ul style="display: flex; gap: 15px;">
+            <ul>
                 <li><a href="./index.php?controleur=admin&action=dashboard" >Général</a></li>
                 <li><a href="./index.php?controleur=admin&action=formAjouterDate">Ajouter date</a></li>
                 <li><a href="./index.php?controleur=admin&action=formSupprimerDate">Supprimer date</a></li>
@@ -28,7 +28,7 @@
 
                 <div>
                     <table>
-                        <tr style="position: sticky; top:0; background-color: #fff !important; z-index: 1;">
+                        <tr>
                             <th style="text-align: left;">Nom Prénom</th>
                             <th style="text-align: left;">Email</th>
                             <th style="text-align: left;">Téléphone</th>
