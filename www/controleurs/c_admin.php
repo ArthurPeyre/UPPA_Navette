@@ -57,7 +57,7 @@ switch ($action) {
         $date = $_POST["txtDate"];
         $today = date("Y-m-d"); 
         $inputDate = date("Y-m-d", strtotime($date));
-        
+        $idDate=NULL;
         if ($inputDate >= $today) {
             $uneDate = new Date($idDate,$date);
             $dateDao = new DateDAO();
