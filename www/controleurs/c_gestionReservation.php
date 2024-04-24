@@ -7,9 +7,7 @@
             if (isset($_SESSION['Utilisateur'])) {
                 if (isset($_POST['formReserver'])) {
                     $direction = ($_POST['depart'] < $_POST['arrivee']) ? 1 : 2;
-    
-                    $objTrajetDAO = new TrajetDAO();
-                    $objReservationDAO = new ReservationDAO();
+
     
                     $objTrajet = $objTrajetDAO->getLeTrajet($_POST['lstDate'], $_POST['lstHoraire'], $direction);
     
@@ -53,7 +51,6 @@
         case 'annulation':
             if (!isset($_SESSION['Utilisateur']) || !isset($_GET['id_trajet'])) header("Location: index.php");
 
-            $objReservationDAO = new ReservationDAO();
             if ($objReservationDAO->supprimer($_GET['id_trajet'], $_SESSION['Utilisateur'])) echo "lol";
 
             header("Location: index.php");

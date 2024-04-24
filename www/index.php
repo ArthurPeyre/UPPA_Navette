@@ -23,7 +23,13 @@
 
 
     $conn = conn();
-
+    
+    $objTrajetDAO = new TrajetDAO();
+    $objDateDAO = new DateDAO();
+    $objHoraireDAO = new HoraireDAO();
+    $objUtilisateurDAO = new UtilisateurDAO();
+    $objReservationDAO = new ReservationDAO();
+    
     session_start();
 
     // Définit le fuseau horaire à utiliser
@@ -53,6 +59,7 @@
     <div id="app">
         
         <?php
+
             switch ($controleur) {
                 case 'accueil':
                     include_once('./vues/v_formReservation.php');
