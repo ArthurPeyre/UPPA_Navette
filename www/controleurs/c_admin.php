@@ -63,7 +63,7 @@ switch ($action) {
         if ($inputDate >= $today) {
             $idDate = NULL;
             $uneDate = new Date($idDate,$date);
-            $res = $dateDao->creer($uneDate);
+            $res = $objDateDAO->creer($uneDate);
             if ($res) {
                 $message =  "Date ajoutée avec succès.";
             } else {
