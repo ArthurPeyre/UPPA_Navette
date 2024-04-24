@@ -59,6 +59,7 @@ switch ($action) {
         $inputDate = date("Y-m-d", strtotime($date));
         
         if ($inputDate >= $today) {
+            $idDate = NULL;
             $uneDate = new Date($idDate,$date);
             $dateDao = new DateDAO();
             $res = $dateDao->creer($uneDate);
