@@ -6,7 +6,7 @@ class Date {
 
     // Méthodes et fonctions
     public function __construct($idDate,$laDate) {
-        $this->id_date=$idDate;
+        $this->id_date = $idDate;
         $this->date = $laDate;
     }
 

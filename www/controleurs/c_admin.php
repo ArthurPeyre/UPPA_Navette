@@ -25,11 +25,13 @@ switch ($action) {
             'December' => 'Décembre'
         );
 
-        $objTrajetDAO = new TrajetDAO();
+        /*$objTrajetDAO = new TrajetDAO();
         $objDateDAO = new DateDAO();
         $objHoraireDAO = new HoraireDAO();
         $objUtilisateurDAO = new UtilisateurDAO();
         $objReservationDAO = new ReservationDAO();
+        $objLieuDAO = new LieuDAO();*/
+        
         // Nombre de VISITES
         $Visites = $objUtilisateurDAO->getNbVisites();
 
@@ -59,8 +61,8 @@ switch ($action) {
         $inputDate = date("Y-m-d", strtotime($date));
         $idDate=NULL;
         if ($inputDate >= $today) {
+            $idDate = NULL;
             $uneDate = new Date($idDate,$date);
-            $dateDao = new DateDAO();
             $res = $dateDao->creer($uneDate);
             if ($res) {
                 $message =  "Date ajoutée avec succès.";
@@ -86,7 +88,6 @@ switch ($action) {
     case 'suppressionDate':
         if (!isset($_SESSION['Utilisateur']) || $_SESSION['Utilisateur']->getType() < 1) header('Location: ./index.php');
         $idDate = $_POST["lstDate"];
-        $objDateDAO = new DateDAO();
         $resultat = $objDateDAO->supprimer($idDate);
         if ($resultat) {
             $message= "Date supprimer avec succès ";

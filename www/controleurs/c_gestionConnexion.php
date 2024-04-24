@@ -9,7 +9,6 @@
 
         case 'identification':
             if (!isset($_SESSION['Utilisateur']) && isset($_POST['formConn'])) {
-                $objUtilisateurDAO = new UtilisateurDAO();
                 $objUtilisateur = $objUtilisateurDAO->charger($_POST['txtemail'], $_POST['txtmdp']);
                 if ($objUtilisateur != null) {
                     $_SESSION['Utilisateur'] = $objUtilisateur;
@@ -28,8 +27,6 @@
         case 'enregistrement':
             if (isset($_SESSION['Utilisateur'])) header('Location: ./index.php?controleur=accueil');
             if (!isset($_POST['formConn'])) header('Location: ./index.php?controleur=gererConnexion&action=formEnregistrement');
-
-            $objUtilisateurDAO = new UtilisateurDAO();
 
             // Si aucun compte n'est renvoyé
             if (!$objUtilisateurDAO->estInscrit($_POST['txtemail'], $_POST['phone'])) {

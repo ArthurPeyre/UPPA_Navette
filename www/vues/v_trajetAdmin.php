@@ -1,7 +1,7 @@
 <html>
     <body>
 <section style="padding-top:0;">
-            <form class="list__container" action="./admin/reservations.php" method="post">
+            <form class="list__container" action="./index.php?controleur=admin&action=voirReservation" method="post">
                 <h2>Trajets</h2>
 
                 <div>
