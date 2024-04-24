@@ -21,7 +21,7 @@
 
         <section id="list" style="padding-top:0;">
             <div class="list__container">
-                <form method="post" action="" >
+                <form method="post" action="./index.php?controleur=admin&action=fichierExcel" >
                     <h2>Réservations</h2>
                     <input type="submit"class="btn" value="Télécharger le fichier Excel">
                 </form>
