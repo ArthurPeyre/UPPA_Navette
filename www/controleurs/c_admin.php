@@ -136,7 +136,7 @@ switch ($action) {
         if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
             header('Location: ../index.php');
         }
-        
+
         // Définir le fuseau horaire
         date_default_timezone_set('Europe/Paris');
         setlocale(LC_TIME, 'fr_FR.utf8','fra');
@@ -194,4 +194,4 @@ switch ($action) {
         echo '</table>'.chr(13);
         break;
 }
-
+?>
