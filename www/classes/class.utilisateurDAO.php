@@ -32,22 +32,36 @@ class UtilisateurDAO {
         return $result;
     }
 
-    public function supprimer(Arret $objArret) {
+    public function supprimer(Utilisateur $objUtilisateur) {
         // Supprime l'arrêt correspondant à l'objet passé en paramètre
-        $sql = "DELETE FROM lieux WHERE id_lieu=:idArret AND ville=:ville AND lieu=:lieu";
+        $sql = "DELETE FROM utilisateurs WHERE nom=:nom AND prenom=:prenom AND email=:email AND phone=:phone AND password=:password AND residence=:residence AND id_utilisateur=:idUtilisateur";
+
+        $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $idUtilisateur = $objUtilisateur->getIdUtilisateur();
+        $nom = $objUtilisateur->getNom();
+        $prenom = $objUtilisateur->getPrenom();
+        $email = $objUtilisateur->getEmail();
+        $phone = $objUtilisateur->getPhone();
+        $residence = $objUtilisateur->getResidenceAdministrative();
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':idArret', $objArret->getIdArret());
-        $stmt->bindParam(':ville', $objArret->getVille());
-        $stmt->bindParam(':lieu', $objArret->getLieu());
-
+        $stmt->bindParam(':idUtilisateur', $idUtilisateur);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':password', $hash);
+        $stmt->bindParam(':residence', $residence);
+        
         $bool = ($stmt->execute());
         
         return $bool;
     }
 
     public function creer(Utilisateur $objUtilisateur) {
-        // Supprime l'arrêt correspondant à l'objet passé en paramètre
+        // Supprime l'utilisateur correspondant à l'objet passé en paramètre
         $sql = "INSERT INTO utilisateurs VALUES (NULL, :nom, :prenom, :email, :phone, :password, 0, :residence, NOW());";
 
         $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
@@ -72,14 +86,29 @@ class UtilisateurDAO {
         return $bool;
     }
 
-    public function sauvegarder(Arret $objArret) {
-        // Modifie l'arrêt correspondant à l'objet passé en paramètre
-        $sql = "UPDATE lieux SET ville=:ville, lieu=:lieu WHERE id_lieu=:idArret;";
+    public function sauvegarder(Utilisateur $objUtilisateur) {
+        // modifie l'utilisateur correspondant à l'objet passé en paramètre
+        
+        $sql = "UPDATE utilisateurs SET nom=:nom, prenom=:prenom, email=:email, phone=:phone, password=:password, residence=:residence WHERE id_utilisateur=:idUtilisateur;";
+
+        $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
+        $hash = password_hash($password, PASSWORD_DEFAULT);
+
+        $idUtilisateur = $objUtilisateur->getIdUtilisateur();
+        $nom = $objUtilisateur->getNom();
+        $prenom = $objUtilisateur->getPrenom();
+        $email = $objUtilisateur->getEmail();
+        $phone = $objUtilisateur->getPhone();
+        $residence = $objUtilisateur->getResidenceAdministrative();
 
         $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':ville', $objArret->getVille());
-        $stmt->bindParam(':lieu', $objArret->getLieu());
-        $stmt->bindParam(':idArret', $objArret->getIdArret());
+        $stmt->bindParam(':idUtilisateur', $idUtilisateur);
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':prenom', $prenom);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':phone', $phone);
+        $stmt->bindParam(':password', $hash);
+        $stmt->bindParam(':residence', $residence);
 
         $bool = ($stmt->execute());
         
