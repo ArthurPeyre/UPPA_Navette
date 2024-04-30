@@ -1,6 +1,4 @@
 <?php
-    include_once('conn.php');
-
     include_once('./classes/class.gestionConnexion.php');
 
     include_once('./classes/class.date.php');
@@ -19,10 +17,7 @@
     include_once('./classes/class.trajetDAO.php');
 
     include_once('./classes/class.utilisateur.php');
-    include_once('./classes/class.utilisateurDAO.php');
-
-
-    $conn = conn();
+    include_once('./classes/class.utilisateurDAO.php');;
     
     $objTrajetDAO = new TrajetDAO();
     $objDateDAO = new DateDAO();
@@ -83,8 +78,6 @@
                     header('Location: ./index.php?controleur=accueil');
                     break;
             }
-            
-            close($conn);
         ?>
     
     </div>
