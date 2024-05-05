@@ -31,7 +31,7 @@
         <input type="text" name="residence" id="residence" required>
     </label>
 
-    <input type="submit" name="formConn" value="Créer un compte">
+    <input type="submit" name="formConn" value="Créer un compte" class="btn">
 
     <span>Vous avez déjà un compte ? <a href="./index.php?controleur=gererConnexion&action=formIdentification">Connectez-vous</a></span>
 </form>

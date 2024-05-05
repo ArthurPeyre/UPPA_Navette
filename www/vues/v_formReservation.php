@@ -6,8 +6,10 @@
     $tabLieux = $objLieuxDAO->getTousLesLieux();
     ?>
 
-    <label for="depart">
-        Lieu de départ<br/>
+    <div>
+        <label for="depart">
+            Lieu de départ<br/>
+        </label>
         <select name="depart" id="depart" required>
             <?php foreach ($tabLieux as $lieu) : ?>
                 <option value="<?= $lieu->getIdLieu() ?>">
@@ -16,10 +18,12 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </label>
+    </div>
 
-    <label for="arrivee">
-        Lieu d'arrivée<br/>
+    <div>
+        <label for="arrivee">
+            Lieu d'arrivée<br/>
+        </label>
         <select name="arrivee" id="arrivee" required>
             <?php foreach ($tabLieux as $lieu) :
                 if ($lieu->getVille() === "Anglet") {
@@ -37,7 +41,7 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </label>
+    </div>
 
     <?php
     $objDateDAO = new DateDAO();
@@ -46,12 +50,14 @@
 
     ?>
 
-    <label for="">
-        Date<br/>
+    <div>
+        <label for="">
+            Date<br/>
+        </label>
         <select name="lstDate" id="" required>
             <?php foreach ($tabDates as $date) :
                 $timestamp = strtotime($date->getDate());
-
+    
                 $date_formatee = date("d M Y", $timestamp);
             ?>
                 <option value="<?= $date->getIdDate() ?>">
@@ -59,26 +65,28 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </label>
+    </div>
 
     <?php
     $objHoraireDAO = new HoraireDAO();
     $tabHoraires = $objHoraireDAO->getLesHorairesDepart();
     ?>
 
-<label for="">
-    Heure de départ<br/>
-    <select name="lstHoraire" id="" required>
+    <div>
+        <label for="">
+            Heure de départ<br/>
+        </label>
+        <select name="lstHoraire" id="" required>
         <?php foreach ($tabHoraires as $horaire) : ?>
             <option value="<?= $horaire->getIdHoraire() ?>">
                 <span><?= $horaire->getHeureDepart() ?></sid_lieupan>
             </option>
-            <?php endforeach; ?>
+        <?php endforeach; ?>
         </select>
-    </label>
+    </div>
     
-    <input type="submit" name="formReserver" value="Réserver">
-    <div>  Rappel : les horaires sont mentionnées pour un départ depuis Pau ou d'Anglet</div>
+    <input type="submit" name="formReserver" value="Réserver" class="btn">
+    <div>Rappel : les horaires sont mentionnées pour un départ depuis Pau ou Anglet</div>
 </form>
 
 

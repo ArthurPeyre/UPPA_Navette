@@ -11,7 +11,7 @@
         <input type="password" name="txtmdp" id="" required>
     </label>
 
-    <input type="submit" name="formConn" value="Se connecter">
+    <input type="submit" name="formConn" value="Se connecter" class="btn">
 
     <span>Vous n'avez pas encore de compte ? <a href="./index.php?controleur=gererConnexion&action=formEnregistrement">Créer un compte ici</a></span>
 </form>

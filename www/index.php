@@ -1,4 +1,6 @@
 <?php
+    include_once('./conn.php');
+
     include_once('./classes/class.gestionConnexion.php');
 
     include_once('./classes/class.date.php');
@@ -25,6 +27,8 @@
     $objUtilisateurDAO = new UtilisateurDAO();
     $objReservationDAO = new ReservationDAO();
     
+    $conn = conn();
+
     session_start();
 
     // Définit le fuseau horaire à utiliser
@@ -78,6 +82,8 @@
                     header('Location: ./index.php?controleur=accueil');
                     break;
             }
+
+            close($conn);
         ?>
     
     </div>
