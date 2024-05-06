@@ -26,6 +26,7 @@
     $objHoraireDAO = new HoraireDAO();
     $objUtilisateurDAO = new UtilisateurDAO();
     $objReservationDAO = new ReservationDAO();
+    $objLieuDAO = new LieuDAO();
     
     $conn = conn();
 

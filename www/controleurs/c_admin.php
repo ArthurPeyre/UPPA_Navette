@@ -179,10 +179,12 @@ switch ($action) {
         $stmt->bindParam(':trajet', $_SESSION['idTrajet']);
         $stmt->execute();
         $lstUsers = $stmt->fetch();
+        $objTrajet = $objTrajetDAO->charger($_SESSION['idTrajet']);
         
         header("Content-type: application/force-download");
-        header("Content-Disposition: attachment; filename=infoTrajet".$_SESSION['idTrajet'].".xls");
+        header("Content-Disposition: attachment; filename=infoTrajetdu".$objDateDAO->charger($objTrajet->getIdDate())->getDate()." a ".$objHoraireDAO->charger($objTrajet->getIdHoraire())->getHeureDepart().".xls");
         echo '<table>'.chr(13);
+        echo '<caption>Trajet en direction de '.$objLieuDAO->charger($objTrajet->getIdDirection())->getVille().' : '.$objLieuDAO->charger($objTrajet->getIdDirection())->getLieu().' a '.$objHoraireDAO->charger($objTrajet->getIdHoraire())->getHeureDepart().' le '.$objDateDAO->charger($objTrajet->getIdDate())->getDate().'<\caption>';
         echo '    <tr>'.chr(13);
         echo '        <td>Nom Prénom</td>'.chr(13);
         echo '        <td>Email</td>'.chr(13);
