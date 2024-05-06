@@ -1,12 +1,14 @@
 @font-face {
-    font-family: 'Caladea';
-    src: url('/res/fonts/Caladea-Regular.ttf') format('truetype'),
-    url('/res/fonts/Caladea-Bold.ttf') format('truetype'),
-    url('/res/fonts/Caladea-Italic.ttf') format('truetype'),
-    url('/res/fonts/Caladea-BoldItalic.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'Outfit';
+    src: url('./res/fonts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
 }  
+
+:root {
+    --main-color: #0054FF;
+    --secound-main-color: #0046cc;
+    --bg-color: #f1f5fc;
+    --marge: 25px;
+}
 
 *,
 *::before,
@@ -17,120 +19,121 @@
     margin: 0;
     text-decoration: none;
     color: #000;
-    font-size: 18px;
     list-style: none;
-    font-family: Calibri, 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
     outline: none;
     border: none;
 }
 
-#app {
-    display: grid;
-    padding-top: 83.2px;
-    gap: 15px;
-    grid-template-areas: "reserver reservations ";
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    justify-content: center;
-}
-
-h2 {
-    font-size: 1.5rem;
-    font-family: 'Caladea';
-    font-weight: 600;
-    text-indent: 15px;
-}
-
-header, header nav ul {
-    display: flex;
-    align-items: center;
+body {
+    background-color: var(--bg-color);
+    font-family: 'Outfit';
 }
 
 header {
-    position: fixed;
-    background-color: #fff;
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
-    gap: 30px;
-    padding: 10px 30px;
-    border: 2px solid #ddd;
-    z-index: 999;
-    width: 100%;
+    background-color: #fff;
+    padding: 10px var(--marge);
+    box-shadow: 0 5px 10px 0 #00000022;
+    z-index: 998;
 }
 header img {
-    height: 60px;
+    height: 40px;
 }
 header nav ul {
-    gap: 15px;
+    display: flex;
+    align-items: center;
+    gap: calc(var(--marge)/1.5);
+}
+header nav ul li:last-child a {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--marge)/2);
+}
+header nav ul li:last-child svg {
+    width: 30px;
+    height: 30px;
+}
+
+a {
+    text-align: center;
+    font-weight: 500;
+    transition: 150ms linear;
+}
+a:hover, a:hover * {
+    color: var(--main-color);
+    fill: var(--main-color);
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: var(--main-color);
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+}
+.btn:hover {
+    background-color: var(--secound-main-color);
+    color: #fff;
+}
+
+input, select, textarea {
+    font-family: 'Outfit';
+    font-size: 1rem;
+    padding: 5px 0;
+    border-bottom: 2px solid #00000022;
+    width: 100%;
+    transition: 150ms linear;
+}
+input.btn {
+    font-weight: 500;
+}
+
+label {
+    font-size: 0.85rem;
+    color: var(--main-color);
 }
 
 
-form {
-    max-width: 450px;
+#app {
     display: flex;
     flex-direction: column;
-    gap: 15px;
-    padding: 15px;
+    gap: var(--marge);
+    padding: var(--marge);
 }
-input, select {
-    width: 100%;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: inset 0 0 0 2px #ddd;
-}
-input:focus, select:focus {
-    box-shadow: inset 0 0 0 2px #000;
-}
-label {
+
+
+#formReserver, #reservations, #formProfil, #dashboard, .stats__container, .list__container, #formAjoutDate, #formSupprimer {
     display: grid;
-    gap: 5px;
-    text-indent: 15px;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--marge);
+    width: min(800px, 100%);
+    margin: 0 auto;
+    padding: var(--marge);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 #00000022;
 }
 
-.btn2, .btn, input[type=submit] {
-    cursor: pointer;
-    text-align: center;
-    padding: 12px 25px;
-    border-radius: 100vh;
-    box-shadow: inset 0 0 0 2px #000;
-    background-color: transparent;
-    font-weight: 600;
-    transition: all 300ms ease-in-out;
-}
-.btn2, .btn:hover, input[type=submit]:hover {
-    background-color: #000;
-    color: #fff;
-    transition: all 150ms ease-in-out;
-}
-input[type=reset] {
-    background-color: transparent;
-    padding: 0;
-    box-shadow: none;
-    cursor: pointer;
+#app > * h1, #app > * h2, #app > * input[type=submit], #formReserver > div:last-child, #formProfil > *:last-child, #dashboard > *, .list__container > * {
+    grid-column: span 2;
 }
 
-
-#reservations {
-    grid-area: reservations;
-    /* min-height: calc(100dvh - 83.2px); */
-    padding: 15px;
-   
-    box-shadow: inset 1px 0 0 0 #ddd, inset -1px 0 0 0 #ddd, 1px 0 0 0 #ddd, -1px 0 0 0 #ddd;
-}
-
-.reservations__container {
-    display: grid;
-    gap: 15px;
-    padding-top: 15px;
-}
 
 .reservation {
+    grid-column: span 2;
     display: flex;
     flex-direction: column;
     box-shadow: inset 0 0 0 2px #ddd;
-    border-radius: 15px;
+    border-radius: 5px;
     padding: 15px;
     gap: 15px;
     height: fit-content;
+    width: 100%;
 }
 .reservation > div {
     display: flex;
@@ -169,84 +172,85 @@ input[type=reset] {
     left: 0;
 }
 
-#formReserver {
-    grid-area: reserver;
-    
-}
-
-
-
-
-.error {
-    color: #f00;
-    text-align: center;
-}
-
-.gray {
-    color: #777;
-}
-
-.bold {
-    font-size: 1.125rem;
-    font-weight: bold;
-}
-
-#enregistrerBtn.active {
-    background-color: red;
-    /* Ajoutez d'autres styles au besoin */
-}
-
-
-@media (max-width: 1210px) {
-    #app {
-        grid-template-areas: "reserver reservations" ;
-        grid-template-columns: min(100%, 365px) ;
-    }
-}
-
-@media (max-width: 1210px) {
-    #app {
-        grid-template-areas: "reserver reservations";
-        grid-template-columns: min(100%, 365px) min(100%, 450px);
-    }
-
-    #reservations {
-        box-shadow: none;
-    }
-}
-
-@media (max-width: 830px) {
-    header {
-        justify-content: center;
-    }
-
-    header nav {
-        display: none;
-    }
-}
-#formProfil {
-    margin: auto;
-    position: relative;
-    top: 52%;
-    left: 90%;
-    transform: translate(-50%, -50%); 
-    width: 80%; 
-    max-width: 500px; 
-    min-width: 300px; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
-    padding: 2em;
-    background: #fff; 
-    border-radius: 15px; 
-}
-.deconnexion {
-    position: relative;
-    
-    right: -160px; /* Ajustez selon la marge désirée de la droite */
-    color: black; /* La couleur initiale du texte */
-    text-decoration: none; /* Retire le soulignement par défaut des liens */
-    transition: color 0.3s; /* Animation douce pour le changement de couleur */
-}
 
 .deconnexion:hover {
     color: red; /* La couleur du texte au survol */
+}
+
+
+/* Dashboard styles */
+
+#dashboard ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--marge);
+}
+
+
+/* Stats section */
+.stats__container {
+    background-color: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+
+.stats__view {
+    display: flex;
+    align-items: center;
+    gap: var(--marge);
+    background: white;
+    padding: calc(var(--marge)/2) var(--marge);
+    border-radius: 10px;
+    box-shadow: 0 5px 10px 0 #00000022;
+    min-width: 250px;
+}
+.stats__view:first-child {
+    background-color: var(--main-color);
+}
+.stats__view:first-child * {
+    color: #fff;
+    fill: #fff;
+}
+.stats__view div:last-child {
+    display: flex;
+    flex-direction: column;
+
+}
+.stats__view .svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.stat {
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+
+
+
+.list__container th, .list__container td {
+    padding: 5px;
+}
+tr:nth-child(even) {
+    background-color: var(--bg-color); /* Couleur de fond pour les lignes impaires */
+}
+.list__container h2, .list__container input[type=submit] {
+    grid-column: span 1 !important;
+}
+.list__container input[type=submit] {
+    width: fit-content;
+    margin-left: auto;
+}
+
+
+
+@media (max-width: 600px) {
+    #app > form > *, .stats__container > * {
+        grid-column: span 2;
+    }
+
+    header nav ul li:last-child a span {
+        display: none;
+    }
 }

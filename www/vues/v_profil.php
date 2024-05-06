@@ -11,32 +11,42 @@
     } else {
     ?>
 
-    <label for="txtnom">
-        Nom<br/>
+    <div>
+        <label for="txtnom">
+            Nom
+        </label>
         <input type="text" name="txtnom" id="txtnom" value="<?= $_SESSION['Utilisateur']->getNom() ?>" required>
-    </label>
+    </div>
 
-    <label for="txtprenom">
-        Prénom<br/>
+    <div>
+        <label for="txtprenom">
+            Prénom
+        </label>
         <input type="text" name="txtprenom" id="txtprenom" value="<?= $_SESSION['Utilisateur']->getPrenom() ?>" required>
-    </label>
+    </div>
 
-    <label for="txtemail">
-        Email<br/>
+    <div>
+        <label for="txtemail">
+            Email
+        </label>
         <input type="email" name="txtemail" id="txtemail" value="<?= $_SESSION['Utilisateur']->getEmail() ?>" required>
-    </label>
+    </div>
 
-    <label for="phone">
-        Téléphone<br/>
+    <div>
+        <label for="phone">
+            Téléphone
+        </label>
         <input type="tel" name="phone" id="phone" value="<?= $_SESSION['Utilisateur']->getPhone() ?>" required>
-    </label>
+    </div>
 
-    <label for="residence">
-        Résidence administrative<br/>
+    <div>
+        <label for="residence">
+            Résidence administrative
+        </label>
         <input type="tel" name="residence" id="residence" value="<?= $_SESSION['Utilisateur']->getResidenceAdministrative() ?>" required>
-    </label>
+    </div>
 
-    <input type="submit" name="formProfil" value="Enregistrer">
+    <input type="submit" name="formProfil" value="Enregistrer" class="btn">
     
     <a href="./index.php?controleur=gererConnexion&action=deconnexion" class="deconnexion">Déconnexion</a>
     <?php

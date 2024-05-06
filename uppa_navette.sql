@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le : sam. 13 avr. 2024 à 21:35
--- Version du serveur : 5.7.39
--- Version de PHP : 7.4.33
+-- Généré le : mar. 30 avr. 2024 à 09:31
+-- Version du serveur :  5.7.34
+-- Version de PHP : 8.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `uppa_navette`
 --
+CREATE DATABASE IF NOT EXISTS `uppa_navette` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `uppa_navette`;
 
 -- --------------------------------------------------------
 
@@ -59,9 +61,13 @@ INSERT INTO `date` (`id_date`, `date`) VALUES
 (20, '2024-03-21'),
 (21, '2024-03-26'),
 (22, '2024-02-28'),
-(23, '2024-04-14'),
-(24, '2024-04-24'),
-(25, '2024-04-20');
+(23, '2024-04-12'),
+(24, '2024-04-13'),
+(25, '2024-04-17'),
+(26, '2024-04-23'),
+(27, '2024-04-23'),
+(29, '2024-04-26'),
+(30, '2024-04-26');
 
 -- --------------------------------------------------------
 
@@ -148,8 +154,6 @@ CREATE TABLE `reserver` (
 INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieuArrivee`) VALUES
 (3, 3, 1, 5),
 (4, 12, 1, 6),
-(7, 14, 1, 6),
-(9, 14, 1, 6),
 (11, 3, 1, 6),
 (11, 12, 1, 6),
 (12, 12, 6, 1),
@@ -157,14 +161,13 @@ INSERT INTO `reserver` (`id_trajet`, `id_utilisateur`, `id_lieuDepart`, `id_lieu
 (14, 1, 1, 6),
 (15, 1, 1, 6),
 (16, 1, 1, 6),
-(17, 14, 1, 6),
 (18, 14, 1, 6),
-(18, 15, 1, 6),
-(19, 14, 1, 6),
-(20, 14, 1, 6),
-(21, 14, 1, 6),
+(19, 14, 6, 1),
 (22, 14, 1, 6),
-(27, 14, 1, 6);
+(23, 14, 1, 6),
+(25, 1, 1, 6),
+(25, 5, 1, 6),
+(25, 14, 1, 5);
 
 -- --------------------------------------------------------
 
@@ -198,17 +201,13 @@ INSERT INTO `trajets` (`id_trajet`, `id_date`, `id_horaire`, `id_direction`) VAL
 (14, 21, 2, 1),
 (15, 21, 3, 1),
 (16, 21, 4, 1),
-(17, 16, 1, 1),
-(18, 5, 1, 1),
-(19, 1, 1, 1),
-(20, 12, 1, 1),
-(21, 3, 1, 1),
-(22, 6, 1, 1),
-(23, 23, 1, 1),
-(24, 23, 4, 1),
-(25, 23, 3, 1),
-(26, 25, 1, 1),
-(27, 24, 1, 1);
+(17, 23, 1, 1),
+(18, 24, 2, 1),
+(19, 24, 3, 2),
+(20, 25, 1, 1),
+(21, 25, 1, 1),
+(22, 26, 1, 1),
+(23, 29, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -238,8 +237,8 @@ INSERT INTO `utilisateurs` (`id_utilisateur`, `nom`, `prenom`, `email`, `phone`,
 (5, 'Thierry', 'Pigot', 'tp@univ-pau.fr', '0611223344', '$2y$10$KyLELOqu/VAxH9lYFq8WOuJiotjXc3krfp17L/H1f22MwPi42vJAS', 0, '', '0000-00-00'),
 (12, 'Mundubeltz', 'Armelle', 'armelle.mundubeltz@univ-pau.fr', '0640070077', '$2y$10$Zks4V0jWYVjwwFRY7.5LaeBa3bpFYQxc8PXH4qT9dhcLjkBtbHWS2', 0, '', '0000-00-00'),
 (13, 'David', 'Pierre', 'pierre.david@outlook.fr', '0654862498', '$2y$10$sW9bilowzm.pyu0Swo0VqOpVzrBJbbXNh/Vu0oycfxpbbOr4/PvM.', 0, '', '2024-04-01'),
-(14, 'sambarrey', 'adrien', 'sambarrey.adrien@gmail.com', '0783428890', '$2y$10$CsRAMYtv547ict0exiuaDexNzMsyivFgpr9vr9BNqt317Qe3eb1LC', 1, 'Anglet', '2024-04-11'),
-(15, 'adi 2 ', 'samb', 'samba@gmail.com', '0997239273972', '$2y$10$WvTgZUumBkW5QSJQ2WoKyOjwSdxegF3dBNjNkjZHhwDatBJRrfgxy', 0, 'uygzduygaz', '2024-04-11');
+(14, 'PICIURA', 'Ander', 'test@gmail.com', '06', '$2y$10$DuIwFg3vaqsTzUPiZHT0gePy8lk./qVIxcJ8zgpFCCe10AjA9SRtG', 1, 'test', '2024-04-11'),
+(15, 'hhh', 'aaa', 'aa@test.com', '0', '$2y$10$eJRayz3z6BfwMMxKOdGSYu71JOoZcLa0/XvHBDO11wvKEtz4XFxVW', 0, 'a', '2024-04-30');
 
 --
 -- Index pour les tables déchargées
@@ -295,7 +294,7 @@ ALTER TABLE `utilisateurs`
 -- AUTO_INCREMENT pour la table `date`
 --
 ALTER TABLE `date`
-  MODIFY `id_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_date` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT pour la table `directions`
@@ -313,7 +312,7 @@ ALTER TABLE `lieux`
 -- AUTO_INCREMENT pour la table `trajets`
 --
 ALTER TABLE `trajets`
-  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_trajet` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateurs`

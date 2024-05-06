@@ -1,3 +1,12 @@
+<section id="dashboard">
+    <h1>Tableau de bord</h1>
+    <ul style="display: flex; gap: 15px;">
+        <li><a href="./index.php?controleur=admin&action=dashboard" >Général</a></li>
+        <li><a href="./index.php?controleur=admin&action=formAjouterDate">Ajouter date</a></li>
+        <li><a href="./index.php?controleur=admin&action=formSupprimerDate">Supprimer date</a></li>
+    </ul>
+</section>
+
 <?php
 $action = $_REQUEST['action'];
 
@@ -93,44 +102,44 @@ switch ($action) {
     
     case 'voirReservation':
         if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
-        header('Location: ../index.php');
-    }
+            header('Location: ../index.php');
+        }
 
-    // Définir le fuseau horaire
-    date_default_timezone_set('Europe/Paris');
-    setlocale(LC_TIME, 'fr_FR.utf8','fra');
+        // Définir le fuseau horaire
+        date_default_timezone_set('Europe/Paris');
+        setlocale(LC_TIME, 'fr_FR.utf8','fra');
 
-    // Traduction des mois en français
-    $mois = array(
-        'January' => 'Janvier',
-        'February' => 'Février',
-        'March' => 'Mars',
-        'April' => 'Avril',
-        'May' => 'Mai',
-        'June' => 'Juin',
-        'July' => 'Juillet',
-        'August' => 'Août',
-        'September' => 'Septembre',
-        'October' => 'Octobre',
-        'November' => 'Novembre',
-        'December' => 'Décembre'
-    );
-        // Liste des TRAJETS
-    $stmt = $conn->prepare("SELECT utilisateurs.nom, utilisateurs.prenom, utilisateurs.email, utilisateurs.phone, CONCAT(depart.ville, ', ', depart.lieu) AS lieuDepart, CONCAT(arrivee.ville, ', ', arrivee.lieu) AS lieuArrivee
-    FROM utilisateurs 
-    INNER JOIN reserver ON utilisateurs.id_utilisateur = reserver.id_utilisateur
-    INNER JOIN lieux AS depart ON reserver.id_lieuDepart = depart.id_lieu
-    INNER JOIN lieux AS arrivee ON reserver.id_lieuArrivee = arrivee.id_lieu
-    WHERE reserver.id_trajet = :trajet
-    ORDER BY reserver.id_lieuDepart, reserver.id_lieuArrivee");
-    $date = date('Y-m-01');
-    $stmt->bindParam(':trajet', $_POST['idTrajet']);
-    $stmt->execute();
-    $lstUsers = $stmt->fetch();
-    $_SESSION['idTrajet']=$_POST['idTrajet'];
+        // Traduction des mois en français
+        $mois = array(
+            'January' => 'Janvier',
+            'February' => 'Février',
+            'March' => 'Mars',
+            'April' => 'Avril',
+            'May' => 'Mai',
+            'June' => 'Juin',
+            'July' => 'Juillet',
+            'August' => 'Août',
+            'September' => 'Septembre',
+            'October' => 'Octobre',
+            'November' => 'Novembre',
+            'December' => 'Décembre'
+        );
+            // Liste des TRAJETS
+        $stmt = $conn->prepare("SELECT utilisateurs.nom, utilisateurs.prenom, utilisateurs.email, utilisateurs.phone, CONCAT(depart.ville, ', ', depart.lieu) AS lieuDepart, CONCAT(arrivee.ville, ', ', arrivee.lieu) AS lieuArrivee
+        FROM utilisateurs 
+        INNER JOIN reserver ON utilisateurs.id_utilisateur = reserver.id_utilisateur
+        INNER JOIN lieux AS depart ON reserver.id_lieuDepart = depart.id_lieu
+        INNER JOIN lieux AS arrivee ON reserver.id_lieuArrivee = arrivee.id_lieu
+        WHERE reserver.id_trajet = :trajet
+        ORDER BY reserver.id_lieuDepart, reserver.id_lieuArrivee");
+        $date = date('Y-m-01');
+        $stmt->bindParam(':trajet', $_POST['idTrajet']);
+        $stmt->execute();
+        $lstUsers = $stmt->fetch();
+        $_SESSION['idTrajet']=$_POST['idTrajet'];
 
-    include_once('./vues/v_voirReservation.php');
-    break;
+        include_once('./vues/v_voirReservation.php');
+        break;
 
     case 'fichierExcel':
         if (!isset($_SESSION['Utilisateur']) && $_SESSION['Utilisateur']->getType() < 1) {
