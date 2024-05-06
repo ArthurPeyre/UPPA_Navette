@@ -89,17 +89,19 @@ class UtilisateurDAO {
     public function sauvegarder(Utilisateur $objUtilisateur) {
         // modifie l'utilisateur correspondant à l'objet passé en paramètre
         
-        $sql = "UPDATE utilisateurs SET nom=:nom, prenom=:prenom, email=:email, phone=:phone, password=:password, residence=:residence WHERE id_utilisateur=:idUtilisateur;";
+        $sql = "UPDATE utilisateurs SET nom=:nom, prenom=:prenom, email=:email, phone=:phone, residence_administrative=:residence WHERE id_utilisateur=:idUtilisateur;";
 
-        $password = $objUtilisateur->getPassword(); // Le mot de passe à crypter
-        $hash = password_hash($password, PASSWORD_DEFAULT);
-
+        //$password = $objUtilisateur->getPassword(); // Le mot de passe déjà crypté
         $idUtilisateur = $objUtilisateur->getIdUtilisateur();
         $nom = $objUtilisateur->getNom();
         $prenom = $objUtilisateur->getPrenom();
         $email = $objUtilisateur->getEmail();
         $phone = $objUtilisateur->getPhone();
         $residence = $objUtilisateur->getResidenceAdministrative();
+/*
+        echo $idUtilisateur;
+        echo $nom;
+        echo $prenom;*/
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindParam(':idUtilisateur', $idUtilisateur);
@@ -107,7 +109,7 @@ class UtilisateurDAO {
         $stmt->bindParam(':prenom', $prenom);
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':password', $hash);
+        //$stmt->bindParam(':password', $password);
         $stmt->bindParam(':residence', $residence);
 
         $bool = ($stmt->execute());

@@ -54,6 +54,21 @@
 
             break;
 
+        case 'modifProfil':
+            $objUtilisateur = new Utilisateur($_SESSION['Utilisateur']->getIdUtilisateur(),$_POST['txtnom'],$_POST['txtprenom'],$_POST['txtemail'],$_POST['phone'],$_SESSION['Utilisateur']->getPassword(),$_SESSION['Utilisateur']->getType(),$_POST['residence'],$_SESSION['Utilisateur']->getDerniereConnexion());
+
+            if($objUtilisateurDAO->sauvegarder($objUtilisateur)){
+                echo "Modification réussie";
+                $_SESSION['Utilisateur'] = $objUtilisateur;
+            }else{
+                echo "echec de la modification";
+            }
+
+            include_once('vues/v_profil.php');
+
+            break;
+
+
         case 'deconnexion':
             session_destroy();
             header("Location: ./index.php?controleur=accueil");
