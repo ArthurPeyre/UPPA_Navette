@@ -1,4 +1,4 @@
-<form action="" method="post" id="formProfil">
+<form action="./index.php?controleur=gererConnexion&action=modifProfil" method="post" id="formProfil">
     <h2>Profil</h2>
 
     <?php
@@ -43,7 +43,7 @@
         <label for="residence">
             Résidence administrative
         </label>
-        <input type="tel" name="residence" id="residence" value="<?= $_SESSION['Utilisateur']->getResidenceAdministrative() ?>" required>
+        <input type="text" name="residence" id="residence" value="<?= $_SESSION['Utilisateur']->getResidenceAdministrative() ?>" required>
     </div>
 
     <input type="submit" name="formProfil" value="Enregistrer" class="btn">
