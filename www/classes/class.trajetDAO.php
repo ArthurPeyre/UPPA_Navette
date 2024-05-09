@@ -86,6 +86,24 @@ class TrajetDAO {
         return $result['nbPersonnes'];
     }
 
+    public function getTousLesUtilisateurs($idTrajet){
+        $stmt = $this->conn->prepare("SELECT utilisateurs.nom, utilisateurs.prenom, utilisateurs.email, utilisateurs.phone, CONCAT(depart.ville, ', ', depart.lieu) AS lieuDepart, CONCAT(arrivee.ville, ', ', arrivee.lieu) AS lieuArrivee
+        FROM utilisateurs 
+        INNER JOIN reserver ON utilisateurs.id_utilisateur = reserver.id_utilisateur
+        INNER JOIN lieux AS depart ON reserver.id_lieuDepart = depart.id_lieu
+        INNER JOIN lieux AS arrivee ON reserver.id_lieuArrivee = arrivee.id_lieu
+        WHERE reserver.id_trajet = :trajet
+        ORDER BY reserver.id_lieuDepart, reserver.id_lieuArrivee");
+        $stmt->bindParam(':trajet', $idTrajet);
+        $stmt->execute(); 
+        $lstUsers = array();
+        while ($utilisateur = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $lstUsers[] = $utilisateur;
+        }
+
+        return $lstUsers;
+    }
+    
     public function creer(Trajet $objTrajet) {
         // Enregistre dans la base l'objet passé en paramètre
         $sql = "INSERT INTO trajets VALUES (NULL, :id_date, :id_horaire, :id_direction);";

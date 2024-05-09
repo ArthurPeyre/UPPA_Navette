@@ -11,7 +11,7 @@
             <th style="text-align: left;">Lieu Arrivée</th>
         </tr>
         <?php
-            while ($lstUsers != NULL) {
+            foreach($tabPersonne as $lstUsers) {
                 ?>
         <tr>
             <td style="text-align: left;"><?= $lstUsers['nom'] ?> <?= $lstUsers['prenom'] ?></td>
@@ -20,9 +20,6 @@
             <td style="text-align: left;"><?= $lstUsers['lieuDepart'] ?></td>
             <td style="text-align: left;"><?= $lstUsers['lieuArrivee'] ?></td>
         </tr>
-        <?php
-                $lstUsers = $stmt->fetch();
-            }
-            ?>
+        <?php } ?>
     </table>
 </form>
