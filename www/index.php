@@ -1,5 +1,4 @@
 <?php
-    include_once('./conn.php');
 
     include_once('./classes/class.gestionConnexion.php');
 
@@ -27,8 +26,6 @@
     $objUtilisateurDAO = new UtilisateurDAO();
     $objReservationDAO = new ReservationDAO();
     $objLieuDAO = new LieuDAO();
-    
-    $conn = conn();
 
     session_start();
 
