@@ -63,8 +63,7 @@
             }else{
                 echo "echec de la modification";
             }
-
-            include_once('vues/v_profil.php');
+            header('Location: ./index.php?controleur=gererConnexion&action=profil');
 
             break;
 

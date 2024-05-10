@@ -80,8 +80,6 @@
                     header('Location: ./index.php?controleur=accueil');
                     break;
             }
-
-            close($conn);
         ?>
     
     </div>
